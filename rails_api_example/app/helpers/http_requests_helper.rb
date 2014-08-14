@@ -1,0 +1,2 @@
+module HttpRequestsHelper
+end
