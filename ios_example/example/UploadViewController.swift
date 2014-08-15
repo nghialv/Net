@@ -21,9 +21,9 @@ class UploadViewController : UIViewController
     @IBOutlet var pdfProgressView: UIProgressView!
     @IBOutlet var zipProgressView: UIProgressView!
     
-    let imgUrl = "http://192.168.1.15:3000/files/upload_image"
-    let pdfUrl = "http://192.168.1.15:3000/files/upload_pdf"
-    let zipUrl = "http://192.168.1.15:3000/files/upload_zip"
+    let imgUrl = "http://192.168.1.9:3000/files/upload_image"
+    let pdfUrl = "http://192.168.1.9:3000/files/upload_pdf"
+    let zipUrl = "http://192.168.1.9:3000/files/upload_zip"
     
     override func viewDidLoad() {
         super.viewDidLoad()

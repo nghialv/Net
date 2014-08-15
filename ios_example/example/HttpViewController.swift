@@ -15,7 +15,7 @@ class HttpViewController: UIViewController, NSXMLParserDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         // create net instance
-        net = Net(baseUrlString: "http://192.168.1.15:3000/http_requests/")
+        net = Net(baseUrlString: "http://192.168.1.9:3000/http_requests/")
     }
 
     // MARK: NSXMLParser delegate
@@ -29,7 +29,11 @@ class HttpViewController: UIViewController, NSXMLParserDelegate {
     // MARK: Actions
     @IBAction func jsonGetActions() {
         let url = "get_json"
-        let params = ["integerNumber": 1, "doubleNumber": 2.0, "string": "hello"]
+        let params = ["integerNumber": 1,
+            "doubleNumber": 2.0,
+            "string": "hello",
+            "array": [10, 20, 30],
+            "dictionary": ["x": 100.0, "y": 200.0]]
         
         net.GET(url, params: params, successHandler: { responseData in
                 let result = responseData.json(error: nil)
@@ -70,7 +74,11 @@ class HttpViewController: UIViewController, NSXMLParserDelegate {
     
     @IBAction func urlEncodedPostActions() {
         let url = "post_url_encoded"
-        let params = ["string": "test", "integerNumber": 1, "floatNumber": 1.5]
+        let params = ["string": "test",
+            "integerNumber": 1,
+            "floatNumber": 1.5,
+            "array": [10, 20, 30],
+            "dictionary": ["x": 100.0, "y": 200.0]]
         
         net.POST(url, params: params, successHandler: {
             responseData in
@@ -85,7 +93,11 @@ class HttpViewController: UIViewController, NSXMLParserDelegate {
         let url = "post_multi_part"
         let img = UIImage(named: "puqiz_icon")
         
-        let params = ["string": "test", "integerNumber": 1, "floatNumber": 1.5,
+        let params = ["string": "test",
+            "integerNumber": 1,
+            "floatNumber": 1.5,
+            "array": [10, 20, 30],
+            "dictionary": ["x": 100.0, "y": 200.0],
             "icon": NetData(pngImage: img, filename: "myIcon")]
         
         net.POST(url, params: params, successHandler: {

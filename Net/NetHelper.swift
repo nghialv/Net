@@ -10,6 +10,8 @@ import Foundation
 
 class NetHelper
 {
+    typealias Pair = (String, AnyObject)
+
     /**
     *  check parameters
     *
@@ -48,15 +50,10 @@ class NetHelper
     *  @return
     */
     class func queryStringFromParams(params: NSDictionary) -> String {
-        var query = ""
-        for (name, value) in params {
-            query += "\(name)=\(value)&"
-        }
+        let paramsArray = self.convertParamsToArray(params)
+        var queryString = join("&", paramsArray.map{"\($0)=\($1)"})
         
-        let length = countElements(query) - 1
-        let index: String.Index = advance(query.startIndex, length)
-        query = query.substringToIndex(index)
-        return query.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)
+        return queryString.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)
     }
     
     /**
@@ -86,8 +83,9 @@ class NetHelper
         let prefixData = prefixString.dataUsingEncoding(NSUTF8StringEncoding)
         let seperatorString = "\r\n"
         let seperatorData = seperatorString.dataUsingEncoding(NSUTF8StringEncoding)
+        let paramsArray = self.convertParamsToArray(params)
         
-        for (key, value) in params {
+        for (key, value) in paramsArray {
             var valueData: NSData?
             var valueType: String?
             var filenameClause = ""
@@ -130,5 +128,29 @@ class NetHelper
         data.appendData(endingData)
         
         return data
+    }
+
+    private class func convertParamsToArray(params: NSDictionary) -> [Pair] {
+        var result = [Pair]()
+        
+        for (key, value) in params {
+            if let arrayValue = value as? NSArray {
+                for nestedValue in arrayValue {
+                    let dic = ["\(key)[]": nestedValue]
+                    result += self.convertParamsToArray(dic)
+                }
+            }
+            else if let dicValue = value as? NSDictionary {
+                for (nestedKey, nestedValue) in dicValue {
+                    let dic = ["\(key)[\(nestedKey)]": nestedValue]
+                    result += self.convertParamsToArray(dic)
+                }
+            }
+            else {
+                result.append(("\(key)", value))
+            }
+        }
+        
+        return result
     }
 }

@@ -23,6 +23,7 @@ Demo app
 Usage
 -----
 Use one of the following methods to create a Net instance
+
 ```swift
 // without baseURL
 let net = Net()
@@ -34,6 +35,7 @@ let net = Net(baseUrlString: "http://www.puqiz.com/")
 ### HttpRequest
 
 ###### `GET` Request
+
 ```swift
 let url = "get_path"
 let params = ["integerNumber": 1, "doubleNumber": 2.0, "string": "hello"]
@@ -54,6 +56,19 @@ net.GET(absoluteUrl: url, params: params, successHandler: { responseData in
 		NSLog("Error")
 	})
 ```
+
+You can also use nested params
+
+```swift
+// nested params
+let params = ["string": "test",
+            "integerNumber": 1,
+            "floatNumber": 1.5,
+            "array": [10, 20, 30],
+            "dictionary": ["x": 100.0, "y": 200.0],
+            "image": NetData(pngImage: img, filename: "myIcon")]
+```
+
 By using responseData in sucessHandler closure you can quickly
 * get json dictionary
 * get image
@@ -232,7 +247,6 @@ yourUploadTask.setValue(value: "your_value", forHttpHeaderField: "header_field")
 
 ## In progress
 * Batch of operations
-* Nested params
 * Basic authentiacation
 
 
