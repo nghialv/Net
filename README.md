@@ -2,6 +2,20 @@ Net
 =====
 Net is a HttpRequest wrapper written in Swift
 
+Features
+-----
+* GET, POST, PUT, DELETE method
+* Powerful request params: nested params, number, string, dic, array, image, data
+* Json, Image, Xml Response
+* Download file: resume, suspend, cancel
+* Upload file, data, params(multi-part)
+* Progress closure
+* Background donwload, upload
+* Authentication
+* Batch of operations
+* BaseURL
+* Customizable header
+
 Demo app
 -----
 ![screenshot](https://dl.dropboxusercontent.com/u/8556646/screenshot2.png)
@@ -31,9 +45,9 @@ net.GET(url, params: params, successHandler: { responseData in
 		NSLog("Error")
 	})
 
-// you can also make a request with full url
-let fullUrl = "http://www.puqiz.com/get_path"
-net.GET(fullUrl: url, params: params, successHandler: { responseData in
+// you can also make a request with absolute url
+let url = "http://www.puqiz.com/get_path"
+net.GET(absoluteUrl: url, params: params, successHandler: { responseData in
 		let result = responseData.json(error: nil)
 		NSLog("result \(result)")
 	}, failureHandler: { error in
@@ -143,7 +157,7 @@ net.eventsForBackgroundHandler = { urlSession in
 
 ###### Download
 ```swift
-let downloadTask = net.download(fullUrl: url, progress: { progress in
+let downloadTask = net.download(absoluteUrl: url, progress: { progress in
 		NSLog("progress \(progress)")
 	}, complitionHandler: { fileUrl, error in
 		if error != nil {
@@ -164,7 +178,7 @@ downloadTask.cancel()
 * Upload with file path
 
 ```swift
-let task = net.upload(fullUrl: url, fromFile: file, progressHandler: { progress in
+let task = net.upload(absoluteUrl: url, fromFile: file, progressHandler: { progress in
 		NSLog("progress \(progress)")
 	}, complitionHandler: { error in
 		if error != nil {
@@ -181,7 +195,7 @@ let task = net.upload(fullUrl: url, fromFile: file, progressHandler: { progress 
 ```swift
 let yourData = NSData(...)
         
-net.upload(fullUrl: url, data: yourData, progressHandler: { progress in
+net.upload(absoluteUrl: url, data: yourData, progressHandler: { progress in
 		NSLog("progress: \(progress)")
 	}, complitionHandler: { error in
 		NSLog("Upload completed")
@@ -195,7 +209,7 @@ let image = UIImage(named: "image_file")
 let imageData = UIImagePNGRepresentation(image)
 let params = ["number": 1, "string": "net", "data": imageData]
 
-net.upload(fullUrl: imgUrl, params: params, progressHandler: { progress in
+net.upload(absoluteUrl: imgUrl, params: params, progressHandler: { progress in
 		NSLog("progress: \(progress)")
 	}, complitionHandler: { error in
 		NSLog("Upload completed")
@@ -216,8 +230,11 @@ yourUploadTask.setHttpMethod(.PUT)
 yourUploadTask.setValue(value: "your_value", forHttpHeaderField: "header_field")
 ```
 
-### Batch
-in progress
+## In progress
+* Batch of operations
+* Nested params
+* Basic authentiacation
+
 
 Integration
 -----

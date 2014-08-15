@@ -32,10 +32,10 @@ class UploadTask
     
     private var state: State = .Init
    
-    init(_ session: NSURLSession,_ delegate: UploadTaskDelegate,_ fullUrl: String,_ progressHandler: ProgressHandler?,_ complitionHandler: ComplitionHandler) {
+    init(_ session: NSURLSession,_ delegate: UploadTaskDelegate,_ absoluteUrl: String,_ progressHandler: ProgressHandler?,_ complitionHandler: ComplitionHandler) {
         self.session = session
         self.delegate = delegate
-        let url = NSURL(string: fullUrl)
+        let url = NSURL(string: absoluteUrl)
         self.request = NSMutableURLRequest(URL: url)
         request.HTTPMethod = HttpMethod.POST.toRaw()
     
@@ -43,9 +43,9 @@ class UploadTask
         self.complitionHandler = complitionHandler
     }
     
-    convenience init(session: NSURLSession, delegate: UploadTaskDelegate, fullUrl: String, data: NSData, progressHandler: ProgressHandler?, complitionHandler: ComplitionHandler) {
+    convenience init(session: NSURLSession, delegate: UploadTaskDelegate, absoluteUrl: String, data: NSData, progressHandler: ProgressHandler?, complitionHandler: ComplitionHandler) {
         
-        self.init(session, delegate, fullUrl, progressHandler, complitionHandler)
+        self.init(session, delegate, absoluteUrl, progressHandler, complitionHandler)
         
         // TODO: config for request
         request.setValue("application/octet-stream", forHTTPHeaderField: "Content-Type")
@@ -54,9 +54,9 @@ class UploadTask
         delegate.didCreateUploadTask(task, uploadTask: self)
     }
    
-    convenience init(session: NSURLSession, delegate: UploadTaskDelegate, fullUrl: String, params: NSDictionary, progressHandler: ProgressHandler?, complitionHandler: ComplitionHandler) {
+    convenience init(session: NSURLSession, delegate: UploadTaskDelegate, absoluteUrl: String, params: NSDictionary, progressHandler: ProgressHandler?, complitionHandler: ComplitionHandler) {
         
-        self.init(session, delegate, fullUrl, progressHandler, complitionHandler)
+        self.init(session, delegate, absoluteUrl, progressHandler, complitionHandler)
         
         let boundary = "NET-UPLOAD-boundary-\(arc4random())-\(arc4random())"
         let paramsData = NetHelper.dataFromParamsWithBoundary(params, boundary: boundary)
@@ -69,9 +69,9 @@ class UploadTask
         delegate.didCreateUploadTask(task, uploadTask: self)
     }
     
-    convenience init(session: NSURLSession, delegate: UploadTaskDelegate, fullUrl: String, fromFile: NSURL, progressHandler: ProgressHandler?, complitionHandler: ComplitionHandler) {
+    convenience init(session: NSURLSession, delegate: UploadTaskDelegate, absoluteUrl: String, fromFile: NSURL, progressHandler: ProgressHandler?, complitionHandler: ComplitionHandler) {
         
-        self.init(session, delegate, fullUrl, progressHandler, complitionHandler)
+        self.init(session, delegate, absoluteUrl, progressHandler, complitionHandler)
         
         task = session.uploadTaskWithRequest(request, fromFile: fromFile)
         delegate.didCreateUploadTask(task, uploadTask: self)

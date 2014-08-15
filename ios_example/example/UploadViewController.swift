@@ -151,7 +151,7 @@ class UploadViewController : UIViewController
     
     // MARK: private methods
     private func startUpload(url: String, file: NSURL, progressView: UIProgressView) {
-        let task = net.upload(fullUrl: url, fromFile: file, progressHandler: { progress in
+        let task = net.upload(absoluteUrl: url, fromFile: file, progressHandler: { progress in
                 self.setProgress(progressView, progress: progress)
             }, complitionHandler: { error in
                 if error != nil {

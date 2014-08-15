@@ -114,7 +114,7 @@ class DownloadViewController : UIViewController
     
     // MARK: private methods
     private func startDownload(url: String, progressView: UIProgressView) {
-        let task = net.download(fullUrl: url, progress: { progress in
+        let task = net.download(absoluteUrl: url, progress: { progress in
                 self.setProgress(progressView, progress: progress)
             }, complitionHandler: { fileUrl, error in
                 if error != nil {

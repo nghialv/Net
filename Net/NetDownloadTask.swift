@@ -34,12 +34,12 @@ class DownloadTask
     
     private var state: State = .Init
     
-    init(session: NSURLSession, delegate: DownloadTaskDelegate, fullUrl: String, progressHandler: ProgressHandler?, complitionHandler: ComplitionHandler) {
+    init(session: NSURLSession, delegate: DownloadTaskDelegate, absoluteUrl: String, progressHandler: ProgressHandler?, complitionHandler: ComplitionHandler) {
         self.session = session
         self.delegate = delegate
         
         // create task
-        let url = NSURL(string: fullUrl)
+        let url = NSURL(string: absoluteUrl)
         request = NSMutableURLRequest(URL: url)
         // TODO: config for request
         request.HTTPMethod = HttpMethod.GET.toRaw()
