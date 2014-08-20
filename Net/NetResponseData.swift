@@ -46,7 +46,7 @@ class ResponseData
     */
     func image(error: NSErrorPointer = nil) -> UIImage? {
         let httpResponse = urlResponse as NSHTTPURLResponse
-        if httpResponse.statusCode == 200 && data != nil {
+        if httpResponse.statusCode == 200 && data.length > 0 {
             return UIImage(data: data)
         }
         else if error != nil {
