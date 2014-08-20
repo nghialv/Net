@@ -174,7 +174,7 @@ net.eventsForBackgroundHandler = { urlSession in
 ```swift
 let downloadTask = net.download(absoluteUrl: url, progress: { progress in
 		NSLog("progress \(progress)")
-	}, complitionHandler: { fileUrl, error in
+	}, completionHandler: { fileUrl, error in
 		if error != nil {
 			NSLog("Download failed")
 		}
@@ -195,7 +195,7 @@ downloadTask.cancel()
 ```swift
 let task = net.upload(absoluteUrl: url, fromFile: file, progressHandler: { progress in
 		NSLog("progress \(progress)")
-	}, complitionHandler: { error in
+	}, completionHandler: { error in
 		if error != nil {
 			NSLog("Upload failed : \(error)")
 		}
@@ -212,7 +212,7 @@ let yourData = NSData(...)
         
 net.upload(absoluteUrl: url, data: yourData, progressHandler: { progress in
 		NSLog("progress: \(progress)")
-	}, complitionHandler: { error in
+	}, completionHandler: { error in
 		NSLog("Upload completed")
 	})
 ```
@@ -226,7 +226,7 @@ let params = ["number": 1, "string": "net", "data": imageData]
 
 net.upload(absoluteUrl: imgUrl, params: params, progressHandler: { progress in
 		NSLog("progress: \(progress)")
-	}, complitionHandler: { error in
+	}, completionHandler: { error in
 		NSLog("Upload completed")
 	})
 ```

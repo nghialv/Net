@@ -20,7 +20,7 @@ class DownloadTask
     }
     
     typealias ProgressHandler = (Float) -> ()
-    typealias ComplitionHandler = (NSURL?, NSError?) -> ()
+    typealias CompletionHandler = (NSURL?, NSError?) -> ()
    
     private var session: NSURLSession
     private var delegate: DownloadTaskDelegate
@@ -30,11 +30,11 @@ class DownloadTask
     private var request: NSMutableURLRequest
     
     private var progressHandler: ProgressHandler?
-    private var complitionHandler: ComplitionHandler
+    private var completionHandler: CompletionHandler
     
     private var state: State = .Init
     
-    init(session: NSURLSession, delegate: DownloadTaskDelegate, absoluteUrl: String, progressHandler: ProgressHandler?, complitionHandler: ComplitionHandler) {
+    init(session: NSURLSession, delegate: DownloadTaskDelegate, absoluteUrl: String, progressHandler: ProgressHandler?, completionHandler: CompletionHandler) {
         self.session = session
         self.delegate = delegate
         
@@ -46,7 +46,7 @@ class DownloadTask
         task = session.downloadTaskWithRequest(request)
         
         self.progressHandler = progressHandler
-        self.complitionHandler = complitionHandler
+        self.completionHandler = completionHandler
         
         delegate.didCreateDownloadTask(task, downloadTask: self)
     }
@@ -117,6 +117,6 @@ class DownloadTask
     
     func didComplete(url: NSURL?, error: NSError?) {
         state = error != nil ? .Failed : .Completed
-        self.complitionHandler(url, error)
+        self.completionHandler(url, error)
     }
 }

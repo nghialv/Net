@@ -116,13 +116,13 @@ class DownloadViewController : UIViewController
     private func startDownload(url: String, progressView: UIProgressView) {
         let task = net.download(absoluteUrl: url, progress: { progress in
                 self.setProgress(progressView, progress: progress)
-            }, complitionHandler: { fileUrl, error in
+            }, completionHandler: { fileUrl, error in
                 if error != nil {
                     NSLog("Download failed")
                 }
                 else {
                     self.setProgress(progressView, progress: 1.0)
-                    NSLog("Complition : \(fileUrl)")
+                    NSLog("Completion : \(fileUrl)")
                 
                     let fileManager = NSFileManager.defaultManager()
                     let filename = url.lastPathComponent

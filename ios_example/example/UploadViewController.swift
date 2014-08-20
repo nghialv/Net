@@ -66,7 +66,7 @@ class UploadViewController : UIViewController
         let task = net.upload(fullUrl: imgUrl, params: params, progressHandler: { progress in
                 NSLog("progress: \(progress)")
                 self.setProgress(self.imgProgressView, progress: progress)
-            }, complitionHandler: { error in
+            }, completionHandler: { error in
                 NSLog("Upload completed")
             })
         self.imgUploadTask = task
@@ -80,7 +80,7 @@ class UploadViewController : UIViewController
         let task = net.upload(fullUrl: imgUrl, data: imageData, progressHandler: { progress in
                 NSLog("progress: \(progress)")
                 self.setProgress(self.imgProgressView, progress: progress)
-            }, complitionHandler: { error in
+            }, completionHandler: { error in
                 NSLog("Upload completed")
             })
         self.imgUploadTask = task
@@ -153,7 +153,7 @@ class UploadViewController : UIViewController
     private func startUpload(url: String, file: NSURL, progressView: UIProgressView) {
         let task = net.upload(absoluteUrl: url, fromFile: file, progressHandler: { progress in
                 self.setProgress(progressView, progress: progress)
-            }, complitionHandler: { error in
+            }, completionHandler: { error in
                 if error != nil {
                     NSLog("Upload failed : \(error)")
                 }

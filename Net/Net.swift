@@ -24,7 +24,7 @@ class Net : NSObject, NSURLSessionDataDelegate, NSURLSessionDownloadDelegate, NS
     typealias SuccessHandler = (ResponseData) -> ()
     typealias FailureHandler = (NSError!) -> ()
     typealias ProgressHandler = (Float) -> ()
-    typealias ComplitionHandler = (NSURL?, NSError?) -> ()
+    typealias CompletionHandler = (NSURL?, NSError?) -> ()
     typealias EventsForBackgroundHandler = (NSURLSession) -> ()
     
     var baseUrl: NSURL
@@ -139,13 +139,13 @@ class Net : NSObject, NSURLSessionDataDelegate, NSURLSessionDownloadDelegate, NS
     }
 
     // DOWNLOAD
-    func download(# absoluteUrl: String, startImmediately: Bool = true, progress: ProgressHandler, complitionHandler: ComplitionHandler) -> DownloadTask? {
+    func download(# absoluteUrl: String, startImmediately: Bool = true, progress: ProgressHandler, completionHandler: CompletionHandler) -> DownloadTask? {
         if backgroundSession == nil {
             return nil
         }
         
         let downloader = DownloadTask(session: backgroundSession!, delegate: self, absoluteUrl: absoluteUrl,
-            progressHandler: progress, complitionHandler: complitionHandler)
+            progressHandler: progress, completionHandler: completionHandler)
         
         if startImmediately {
             downloader.resume()
@@ -155,12 +155,12 @@ class Net : NSObject, NSURLSessionDataDelegate, NSURLSessionDownloadDelegate, NS
     }
     
     // UPLOAD
-    func upload(# absoluteUrl: String, data: NSData, startImmediately: Bool = true, progressHandler: ProgressHandler, complitionHandler: (NSError?) -> ()) -> UploadTask? {
+    func upload(# absoluteUrl: String, data: NSData, startImmediately: Bool = true, progressHandler: ProgressHandler, completionHandler: (NSError?) -> ()) -> UploadTask? {
         if uploadSession == nil {
             return nil
         }
         
-        let uploader = UploadTask(session: uploadSession!, delegate: self, absoluteUrl: absoluteUrl, data: data, progressHandler: progressHandler, complitionHandler: complitionHandler)
+        let uploader = UploadTask(session: uploadSession!, delegate: self, absoluteUrl: absoluteUrl, data: data, progressHandler: progressHandler, completionHandler: completionHandler)
     
         if startImmediately {
             uploader.resume()
@@ -169,12 +169,12 @@ class Net : NSObject, NSURLSessionDataDelegate, NSURLSessionDownloadDelegate, NS
         return uploader
     }
    
-    func upload(# absoluteUrl: String, params: NSDictionary, startImmediately: Bool = true, progressHandler: ProgressHandler, complitionHandler: (NSError?) -> ()) -> UploadTask? {
+    func upload(# absoluteUrl: String, params: NSDictionary, startImmediately: Bool = true, progressHandler: ProgressHandler, completionHandler: (NSError?) -> ()) -> UploadTask? {
         if uploadSession == nil {
             return nil
         }
         
-        let uploader = UploadTask(session: uploadSession!, delegate: self, absoluteUrl: absoluteUrl, params: params, progressHandler: progressHandler, complitionHandler: complitionHandler)
+        let uploader = UploadTask(session: uploadSession!, delegate: self, absoluteUrl: absoluteUrl, params: params, progressHandler: progressHandler, completionHandler: completionHandler)
         
         if startImmediately {
             uploader.resume()
@@ -183,12 +183,12 @@ class Net : NSObject, NSURLSessionDataDelegate, NSURLSessionDownloadDelegate, NS
         return uploader
     }
     
-    func upload(# absoluteUrl: String, fromFile: NSURL, startImmediately: Bool = true, progressHandler: ProgressHandler, complitionHandler: (NSError?) -> ()) -> UploadTask? {
+    func upload(# absoluteUrl: String, fromFile: NSURL, startImmediately: Bool = true, progressHandler: ProgressHandler, completionHandler: (NSError?) -> ()) -> UploadTask? {
         if backgroundSession == nil {
             return nil
         }
         
-        let uploader = UploadTask(session: backgroundSession!, delegate: self, absoluteUrl: absoluteUrl, fromFile: fromFile, progressHandler: progressHandler, complitionHandler: complitionHandler)
+        let uploader = UploadTask(session: backgroundSession!, delegate: self, absoluteUrl: absoluteUrl, fromFile: fromFile, progressHandler: progressHandler, completionHandler: completionHandler)
         
         if startImmediately {
             uploader.resume()
