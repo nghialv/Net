@@ -94,7 +94,7 @@ class NetHelper
                 let netData = value as NetData
                 valueData = netData.data
                 valueType = netData.mimeType.getString()
-                filenameClause = " \"filename=\"\(netData.filename)\""
+                filenameClause = " filename=\"\(netData.filename)\""
             }
             else {
                 let stringValue = "\(value)"
