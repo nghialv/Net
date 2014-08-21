@@ -205,7 +205,7 @@ class Net : NSObject, NSURLSessionDataDelegate, NSURLSessionDownloadDelegate, NS
     
     // MARK: NSURLSessionTaskDelegate
     func URLSession(session: NSURLSession!, task: NSURLSessionTask!, didCompleteWithError error: NSError!) {
-        if error {
+        if (error != nil) {
             if task is NSURLSessionDownloadTask {
                 let downloadTask = task as NSURLSessionDownloadTask
                 let downloader = downloaders[downloadTask]
@@ -293,9 +293,9 @@ class Net : NSObject, NSURLSessionDataDelegate, NSURLSessionDownloadDelegate, NS
     */
     private func httpRequest(method: HttpMethod, url: String, params: NSDictionary?, successHandler: SuccessHandler, failureHandler: FailureHandler, isAbsoluteUrl: Bool = false) -> NSURLSessionTask {
         let urlString = isAbsoluteUrl ? url : NSURL(string: url, relativeToURL: baseUrl).absoluteString
-        NSLog(urlString)
+        NSLog(urlString!)
         
-        let request = requestSerializer.requestWithMethod(method, urlString: urlString, params: params, error: nil)
+        let request = requestSerializer.requestWithMethod(method, urlString: urlString!, params: params, error: nil)
         let task = createSessionTaskWithRequest(request, successHandler: successHandler, failureHandler: failureHandler)
         task.resume()
         
@@ -314,7 +314,7 @@ class Net : NSObject, NSURLSessionDataDelegate, NSURLSessionDownloadDelegate, NS
     private func createSessionTaskWithRequest(request: NSURLRequest, successHandler: SuccessHandler, failureHandler: FailureHandler) -> NSURLSessionTask {
         let task = session.dataTaskWithRequest(request, completionHandler:{
             (data, response, error) in
-            if error {
+            if (error != nil) {
                 failureHandler(error)
             }
             else {

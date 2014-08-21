@@ -53,7 +53,7 @@ class NetHelper
         let paramsArray = self.convertParamsToArray(params)
         var queryString = join("&", paramsArray.map{"\($0)=\($1)"})
         
-        return queryString.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)
+        return queryString.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!
     }
     
     /**
@@ -102,30 +102,30 @@ class NetHelper
             }
             
             // append prefix
-            data.appendData(prefixData)
+            data.appendData(prefixData!)
             
             // append content disposition
             let contentDispositionString = "Content-Disposition: form-data; name=\"\(key)\";\(filenameClause)\r\n"
             let contentDispositionData = contentDispositionString.dataUsingEncoding(NSUTF8StringEncoding)
-            data.appendData(contentDispositionData)
+            data.appendData(contentDispositionData!)
             
             // append content type
             if let type = valueType {
                 let contentTypeString = "Content-Type: \(type)\r\n"
                 let contentTypeData = contentTypeString.dataUsingEncoding(NSUTF8StringEncoding)
-                data.appendData(contentTypeData)
+                data.appendData(contentTypeData!)
             }
             
             // append data
-            data.appendData(seperatorData)
-            data.appendData(valueData)
-            data.appendData(seperatorData)
+            data.appendData(seperatorData!)
+            data.appendData(valueData!)
+            data.appendData(seperatorData!)
         }
         
         // append ending data
         let endingString = "--\(boundary)--\r\n"
         let endingData = endingString.dataUsingEncoding(NSUTF8StringEncoding)
-        data.appendData(endingData)
+        data.appendData(endingData!)
         
         return data
     }
