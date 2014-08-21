@@ -15,7 +15,7 @@ class HttpViewController: UIViewController, NSXMLParserDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         // create net instance
-        net = Net(baseUrlString: "http://192.168.1.9:3000/http_requests/")
+        net = Net(baseUrlString: "http://192.168.1.32:3000/http_requests/")
     }
 
     // MARK: NSXMLParser delegate

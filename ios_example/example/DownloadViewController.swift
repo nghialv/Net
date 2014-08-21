@@ -131,7 +131,7 @@ class DownloadViewController : UIViewController
                     let documentDir = urls[0] as NSURL
                     let desUrl = documentDir.URLByAppendingPathComponent(filename)
                 
-                    if fileManager.fileExistsAtPath(desUrl.path) {
+                    if fileManager.fileExistsAtPath(desUrl.path!) {
                         fileManager.removeItemAtURL(desUrl, error: nil)
                     }
                 

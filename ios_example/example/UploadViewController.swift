@@ -21,9 +21,9 @@ class UploadViewController : UIViewController
     @IBOutlet var pdfProgressView: UIProgressView!
     @IBOutlet var zipProgressView: UIProgressView!
     
-    let imgUrl = "http://192.168.1.9:3000/files/upload_image"
-    let pdfUrl = "http://192.168.1.9:3000/files/upload_pdf"
-    let zipUrl = "http://192.168.1.9:3000/files/upload_zip"
+    let imgUrl = "http://192.168.1.32:3000/files/upload_image"
+    let pdfUrl = "http://192.168.1.32:3000/files/upload_pdf"
+    let zipUrl = "http://192.168.1.32:3000/files/upload_zip"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -88,19 +88,19 @@ class UploadViewController : UIViewController
         
         // upload with file
         let path = NSBundle.mainBundle().pathForResource("image_file", ofType: "png")
-        let fileUrl = NSURL(fileURLWithPath: path)
+        let fileUrl = NSURL(fileURLWithPath: path!)
         startUpload(imgUrl, file: fileUrl, progressView: imgProgressView)
     }
     
     @IBAction func pdfResumeAction() {
         let path = NSBundle.mainBundle().pathForResource("pdf_file", ofType: "pdf")
-        let fileUrl = NSURL(fileURLWithPath: path)
+        let fileUrl = NSURL(fileURLWithPath: path!)
         startUpload(pdfUrl, file: fileUrl, progressView: pdfProgressView)
     }
     
     @IBAction func zipResumeAction() {
         let path = NSBundle.mainBundle().pathForResource("zip_file", ofType: "zip")
-        let fileUrl = NSURL(fileURLWithPath: path)
+        let fileUrl = NSURL(fileURLWithPath: path!)
         startUpload(zipUrl, file: fileUrl, progressView: zipProgressView)
     }
     

@@ -64,9 +64,9 @@ class DownloadTask
             if resumeData != nil {
                 task = session.downloadTaskWithResumeData(resumeData)
             }
-//            if task == nil {
-//                task = session.downloadTaskWithRequest(request)
-//            }
+            else {
+                task = session.downloadTaskWithRequest(request)
+            }
             delegate.didCreateDownloadTask(task, downloadTask: self)
         }
         
