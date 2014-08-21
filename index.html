@@ -31,37 +31,275 @@
         <hr>
 
         <section id="main_content">
-          <h3>
-<a name="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages"><span class="octicon octicon-link"></span></a>Welcome to GitHub Pages.</h3>
+          <h1>
+<a name="net" class="anchor" href="#net"><span class="octicon octicon-link"></span></a>Net</h1>
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
+<p>Net is a HttpRequest wrapper written in Swift</p>
 
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
-</code></pre>
+<h2>
+<a name="features" class="anchor" href="#features"><span class="octicon octicon-link"></span></a>Features</h2>
 
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
+<ul>
+<li>GET, POST, PUT, DELETE method</li>
+<li>Powerful request params: nested params, number, string, dic, array, image, data</li>
+<li>Json, Image, Xml Response</li>
+<li>Download file: resume, suspend, cancel</li>
+<li>Upload file, data, params(multi-part)</li>
+<li>Progress closure</li>
+<li>Background donwload, upload</li>
+<li>Authentication</li>
+<li>Batch of operations</li>
+<li>BaseURL</li>
+<li>Customizable header</li>
+</ul><h2>
+<a name="demo-app" class="anchor" href="#demo-app"><span class="octicon octicon-link"></span></a>Demo app</h2>
+
+<p><img src="https://dl.dropboxusercontent.com/u/8556646/screenshot2.png" alt="screenshot"></p>
+
+<h2>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<p>Use one of the following methods to create a Net instance</p>
+
+<div class="highlight highlight-swift"><pre><span class="c1">// without baseURL</span>
+<span class="k">let</span> <span class="n">net</span> <span class="o">=</span> <span class="n">Net</span><span class="p">()</span>
+
+<span class="c1">// with baseURL</span>
+<span class="k">let</span> <span class="n">net</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="nl">baseUrlString</span><span class="p">:</span> <span class="s">"http://www.puqiz.com/"</span><span class="p">)</span> 
+</pre></div>
 
 <h3>
-<a name="designer-templates" class="anchor" href="#designer-templates"><span class="octicon octicon-link"></span></a>Designer Templates</h3>
+<a name="httprequest" class="anchor" href="#httprequest"><span class="octicon octicon-link"></span></a>HttpRequest</h3>
 
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
+<h6>
+<a name="get-request" class="anchor" href="#get-request"><span class="octicon octicon-link"></span></a>
+<code>GET</code> Request</h6>
+
+<div class="highlight highlight-swift"><pre><span class="k">let</span> <span class="n">url</span> <span class="o">=</span> <span class="s">"get_path"</span>
+<span class="k">let</span> <span class="n">params</span> <span class="o">=</span> <span class="p">[</span><span class="s">"integerNumber"</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s">"doubleNumber"</span><span class="o">:</span> <span class="mf">2.0</span><span class="p">,</span> <span class="s">"string"</span><span class="o">:</span> <span class="s">"hello"</span><span class="p">]</span>
+
+<span class="n">net</span><span class="p">.</span><span class="n">GET</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="nl">params</span><span class="p">:</span> <span class="n">params</span><span class="p">,</span> <span class="nl">successHandler</span><span class="p">:</span> <span class="p">{</span> <span class="n">responseData</span> <span class="k">in</span>
+        <span class="k">let</span> <span class="n">result</span> <span class="o">=</span> <span class="n">responseData</span><span class="p">.</span><span class="n">json</span><span class="p">(</span><span class="nl">error</span><span class="p">:</span> <span class="nb">nil</span><span class="p">)</span>
+        <span class="n">NSLog</span><span class="p">(</span><span class="s">"result \(result)"</span><span class="p">)</span>
+    <span class="p">},</span> <span class="nl">failureHandler</span><span class="p">:</span> <span class="p">{</span> <span class="n">error</span> <span class="k">in</span>
+        <span class="n">NSLog</span><span class="p">(</span><span class="s">"Error"</span><span class="p">)</span>
+    <span class="p">})</span>
+
+<span class="c1">// you can also make a request with absolute url</span>
+<span class="k">let</span> <span class="n">url</span> <span class="o">=</span> <span class="s">"http://www.puqiz.com/get_path"</span>
+<span class="n">net</span><span class="p">.</span><span class="n">GET</span><span class="p">(</span><span class="nl">absoluteUrl</span><span class="p">:</span> <span class="n">url</span><span class="p">,</span> <span class="nl">params</span><span class="p">:</span> <span class="n">params</span><span class="p">,</span> <span class="nl">successHandler</span><span class="p">:</span> <span class="p">{</span> <span class="n">responseData</span> <span class="k">in</span>
+        <span class="k">let</span> <span class="n">result</span> <span class="o">=</span> <span class="n">responseData</span><span class="p">.</span><span class="n">json</span><span class="p">(</span><span class="nl">error</span><span class="p">:</span> <span class="nb">nil</span><span class="p">)</span>
+        <span class="n">NSLog</span><span class="p">(</span><span class="s">"result \(result)"</span><span class="p">)</span>
+    <span class="p">},</span> <span class="nl">failureHandler</span><span class="p">:</span> <span class="p">{</span> <span class="n">error</span> <span class="k">in</span>
+        <span class="n">NSLog</span><span class="p">(</span><span class="s">"Error"</span><span class="p">)</span>
+    <span class="p">})</span>
+</pre></div>
+
+<p>You can also use nested params</p>
+
+<div class="highlight highlight-swift"><pre><span class="c1">// nested params</span>
+<span class="k">let</span> <span class="n">params</span> <span class="o">=</span> <span class="p">[</span><span class="s">"string"</span><span class="o">:</span> <span class="s">"test"</span><span class="p">,</span>
+            <span class="s">"integerNumber"</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="s">"floatNumber"</span><span class="o">:</span> <span class="mf">1.5</span><span class="p">,</span>
+            <span class="s">"array"</span><span class="o">:</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">],</span>
+            <span class="s">"dictionary"</span><span class="o">:</span> <span class="p">[</span><span class="s">"x"</span><span class="o">:</span> <span class="mf">100.0</span><span class="p">,</span> <span class="s">"y"</span><span class="o">:</span> <span class="mf">200.0</span><span class="p">],</span>
+            <span class="s">"image"</span><span class="o">:</span> <span class="n">NetData</span><span class="p">(</span><span class="nl">pngImage</span><span class="p">:</span> <span class="n">img</span><span class="p">,</span> <span class="nl">filename</span><span class="p">:</span> <span class="s">"myIcon"</span><span class="p">)]</span>
+</pre></div>
+
+<p>By using responseData in sucessHandler closure you can quickly</p>
+
+<ul>
+<li>get json dictionary</li>
+<li>get image</li>
+<li>parse xml</li>
+</ul><p>for GET, POST, PUT, DELETE request.</p>
+
+<div class="highlight highlight-swift"><pre><span class="c1">// get json dictionary from response data</span>
+<span class="k">let</span> <span class="n">jsonDic</span> <span class="o">=</span> <span class="n">responseData</span><span class="p">.</span><span class="n">json</span><span class="p">(</span><span class="nl">error</span><span class="p">:</span> <span class="n">error</span><span class="p">)</span>
+
+<span class="c1">// get image from response data</span>
+<span class="k">let</span> <span class="n">image</span> <span class="o">=</span> <span class="n">responseData</span><span class="p">.</span><span class="n">image</span><span class="p">()</span>
+
+<span class="c1">// parse xml with delegate</span>
+<span class="k">let</span> <span class="n">result</span> <span class="o">=</span> <span class="n">responseData</span><span class="p">.</span><span class="n">parseXml</span><span class="p">(</span><span class="nl">delegate</span><span class="p">:</span> <span class="nb">self</span><span class="p">)</span>
+</pre></div>
+
+<h6>
+<a name="post-request" class="anchor" href="#post-request"><span class="octicon octicon-link"></span></a>
+<code>POST</code> Request</h6>
+
+<p>Net will automatically check your params to send request as a URL-Encoded request or a Multi-Part request. So you can easily post with number, string, image or binary data.</p>
+
+<ul>
+<li>URL-Encoded Request</li>
+</ul><div class="highlight highlight-swift"><pre><span class="k">let</span> <span class="n">url</span> <span class="o">=</span> <span class="s">"post_path"</span>
+<span class="k">let</span> <span class="n">params</span> <span class="o">=</span> <span class="p">[</span><span class="s">"string"</span><span class="o">:</span> <span class="s">"test"</span><span class="p">,</span> <span class="s">"integerNumber"</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s">"floatNumber"</span><span class="o">:</span> <span class="mf">1.5</span><span class="p">]</span>
+
+<span class="n">net</span><span class="p">.</span><span class="n">POST</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="nl">params</span><span class="p">:</span> <span class="n">params</span><span class="p">,</span> <span class="nl">successHandler</span><span class="p">:</span> <span class="p">{</span> <span class="n">responseData</span> <span class="k">in</span>
+        <span class="k">let</span> <span class="n">result</span> <span class="o">=</span> <span class="n">responseData</span><span class="p">.</span><span class="n">json</span><span class="p">(</span><span class="nl">error</span><span class="p">:</span> <span class="nb">nil</span><span class="p">)</span>
+        <span class="n">NSLog</span><span class="p">(</span><span class="s">"result: \(result)"</span><span class="p">)</span>
+    <span class="p">},</span> <span class="nl">failureHandler</span><span class="p">:</span> <span class="p">{</span> <span class="n">error</span> <span class="k">in</span>
+        <span class="n">NSLog</span><span class="p">(</span><span class="s">"Error"</span><span class="p">)</span>
+    <span class="p">})</span>
+</pre></div>
+
+<ul>
+<li>Multi-Part Request</li>
+</ul><div class="highlight highlight-swift"><pre><span class="k">let</span> <span class="n">url</span> <span class="o">=</span> <span class="s">"post_path"</span>
+<span class="k">let</span> <span class="n">img</span> <span class="o">=</span> <span class="bp">UIImage</span><span class="p">(</span><span class="nl">named</span><span class="p">:</span> <span class="s">"puqiz_icon"</span><span class="p">)</span>
+
+<span class="k">let</span> <span class="n">params</span> <span class="o">=</span> <span class="p">[</span><span class="s">"string"</span><span class="o">:</span> <span class="s">"test"</span><span class="p">,</span> <span class="s">"integerNumber"</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="s">"icon"</span><span class="o">:</span> <span class="n">NetData</span><span class="p">(</span><span class="nl">pngImage</span><span class="p">:</span> <span class="n">img</span><span class="p">,</span> <span class="nl">filename</span><span class="p">:</span> <span class="s">"myIcon"</span><span class="p">)]</span>
+
+<span class="n">net</span><span class="p">.</span><span class="n">POST</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="nl">params</span><span class="p">:</span> <span class="n">params</span><span class="p">,</span> <span class="nl">successHandler</span><span class="p">:</span> <span class="p">{</span> <span class="n">responseData</span> <span class="k">in</span>
+        <span class="k">let</span> <span class="n">result</span> <span class="o">=</span> <span class="n">responseData</span><span class="p">.</span><span class="n">json</span><span class="p">(</span><span class="nl">error</span><span class="p">:</span> <span class="nb">nil</span><span class="p">)</span>
+        <span class="n">NSLog</span><span class="p">(</span><span class="s">"result: \(result)"</span><span class="p">)</span>
+    <span class="p">},</span> <span class="nl">failureHandler</span><span class="p">:</span> <span class="p">{</span> <span class="n">error</span> <span class="k">in</span>
+        <span class="n">NSLog</span><span class="p">(</span><span class="s">"Error"</span><span class="p">)</span>
+    <span class="p">})</span>
+</pre></div>
+
+<h6>
+<a name="put-request" class="anchor" href="#put-request"><span class="octicon octicon-link"></span></a>
+<code>PUT</code> Request</h6>
+
+<div class="highlight highlight-swift"><pre><span class="k">let</span> <span class="n">url</span> <span class="o">=</span> <span class="s">"put_path"</span>
+<span class="k">let</span> <span class="n">params</span> <span class="o">=</span> <span class="p">[</span><span class="s">"string"</span><span class="o">:</span> <span class="s">"test"</span><span class="p">,</span> <span class="s">"integerNumber"</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s">"floatNumber"</span><span class="o">:</span> <span class="mf">1.5</span><span class="p">]</span>
+
+<span class="n">net</span><span class="p">.</span><span class="n">PUT</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="nl">params</span><span class="p">:</span> <span class="n">params</span><span class="p">,</span> <span class="nl">successHandler</span><span class="p">:</span> <span class="p">{</span> <span class="n">responseData</span> <span class="k">in</span>
+        <span class="k">let</span> <span class="n">result</span> <span class="o">=</span> <span class="n">responseData</span><span class="p">.</span><span class="n">json</span><span class="p">(</span><span class="nl">error</span><span class="p">:</span> <span class="nb">nil</span><span class="p">)</span>
+        <span class="n">NSLog</span><span class="p">(</span><span class="s">"result: \(result)"</span><span class="p">)</span>
+    <span class="p">},</span> <span class="nl">failureHandler</span><span class="p">:</span> <span class="p">{</span> <span class="n">error</span> <span class="k">in</span>
+        <span class="n">NSLog</span><span class="p">(</span><span class="s">"Error"</span><span class="p">)</span>
+    <span class="p">})</span>
+</pre></div>
+
+<h6>
+<a name="delete-request" class="anchor" href="#delete-request"><span class="octicon octicon-link"></span></a>
+<code>DELETE</code> Request</h6>
+
+<div class="highlight highlight-swift"><pre><span class="k">let</span> <span class="n">url</span> <span class="o">=</span> <span class="s">"delete_path"</span>
+<span class="k">let</span> <span class="n">params</span> <span class="o">=</span> <span class="p">[</span><span class="s">"id"</span><span class="o">:</span> <span class="mi">10</span><span class="p">]</span>
+
+<span class="n">net</span><span class="p">.</span><span class="n">DELETE</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="nl">params</span><span class="p">:</span> <span class="n">params</span><span class="p">,</span> <span class="nl">successHandler</span><span class="p">:</span> <span class="p">{</span> <span class="n">responseData</span> <span class="k">in</span>
+        <span class="n">NSLog</span><span class="p">(</span><span class="s">"result: \(result)"</span><span class="p">)</span>
+    <span class="p">},</span> <span class="nl">failureHandler</span><span class="p">:</span> <span class="p">{</span> <span class="n">error</span> <span class="k">in</span>
+        <span class="n">NSLog</span><span class="p">(</span><span class="s">"Error"</span><span class="p">)</span>
+    <span class="p">})</span>
+</pre></div>
 
 <h3>
-<a name="rather-drive-stick" class="anchor" href="#rather-drive-stick"><span class="octicon octicon-link"></span></a>Rather Drive Stick?</h3>
+<a name="task" class="anchor" href="#task"><span class="octicon octicon-link"></span></a>Task</h3>
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
+<p>Before using download/upload function you have to call <code>setupSession</code> method to setup the session.</p>
 
-<h3>
-<a name="authors-and-contributors" class="anchor" href="#authors-and-contributors"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
+<div class="highlight highlight-swift"><pre><span class="c1">// setup session without backgroundIdentifier</span>
+<span class="n">net</span><span class="p">.</span><span class="n">setupSession</span><span class="p">()</span>
+</pre></div>
 
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
+<p>To perform background downloads or uploads, you have to call <code>setupSession</code> method with a background identifier string. Then your download/upload tasks can be run even when the app is suspended, exits or crashes. </p>
 
-<h3>
-<a name="support-or-contact" class="anchor" href="#support-or-contact"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
+<div class="highlight highlight-swift"><pre><span class="c1">// setup session with backgroundIdentifier</span>
+<span class="n">net</span><span class="p">.</span><span class="n">setupSession</span><span class="p">(</span><span class="nl">backgroundIdentifier</span><span class="p">:</span> <span class="s">"com.nghialv.download"</span><span class="p">)</span>
 
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
+<span class="c1">// you can set eventsForBackgroundHandler closure</span>
+<span class="c1">// this closure will be invoked when a task is completed in the background</span>
+<span class="n">net</span><span class="p">.</span><span class="n">eventsForBackgroundHandler</span> <span class="o">=</span> <span class="p">{</span> <span class="n">urlSession</span> <span class="k">in</span>
+        <span class="n">urlSession</span><span class="p">.</span><span class="n">getDownloadingTasksCount</span><span class="p">{</span> <span class="n">downloadingTaskCount</span> <span class="k">in</span>
+        <span class="k">if</span> <span class="n">downloadingTaskCount</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+            <span class="n">NSLog</span><span class="p">(</span><span class="s">"All files have been downloaded!"</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<h6>
+<a name="download" class="anchor" href="#download"><span class="octicon octicon-link"></span></a>Download</h6>
+
+<div class="highlight highlight-swift"><pre><span class="k">let</span> <span class="n">downloadTask</span> <span class="o">=</span> <span class="n">net</span><span class="p">.</span><span class="n">download</span><span class="p">(</span><span class="nl">absoluteUrl</span><span class="p">:</span> <span class="n">url</span><span class="p">,</span> <span class="nl">progress</span><span class="p">:</span> <span class="p">{</span> <span class="n">progress</span> <span class="k">in</span>
+        <span class="n">NSLog</span><span class="p">(</span><span class="s">"progress \(progress)"</span><span class="p">)</span>
+    <span class="p">},</span> <span class="nl">completionHandler</span><span class="p">:</span> <span class="p">{</span> <span class="n">fileUrl</span><span class="p">,</span> <span class="n">error</span> <span class="k">in</span>
+        <span class="k">if</span> <span class="n">error</span> <span class="o">!=</span> <span class="nb">nil</span> <span class="p">{</span>
+            <span class="n">NSLog</span><span class="p">(</span><span class="s">"Download failed"</span><span class="p">)</span>
+        <span class="p">}</span>
+        <span class="k">else</span> <span class="p">{</span>
+            <span class="n">NSLog</span><span class="p">(</span><span class="s">"Downloaded to  : \(fileUrl)"</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">})</span>
+
+<span class="c1">// you can control your task</span>
+<span class="n">downloadTask</span><span class="p">.</span><span class="n">resume</span><span class="p">()</span>
+<span class="n">downloadTask</span><span class="p">.</span><span class="n">suspend</span><span class="p">()</span>
+<span class="n">downloadTask</span><span class="p">.</span><span class="n">cancel</span><span class="p">()</span>
+</pre></div>
+
+<h6>
+<a name="upload" class="anchor" href="#upload"><span class="octicon octicon-link"></span></a>Upload</h6>
+
+<ul>
+<li>Upload with file path</li>
+</ul><div class="highlight highlight-swift"><pre><span class="k">let</span> <span class="n">task</span> <span class="o">=</span> <span class="n">net</span><span class="p">.</span><span class="n">upload</span><span class="p">(</span><span class="nl">absoluteUrl</span><span class="p">:</span> <span class="n">url</span><span class="p">,</span> <span class="nl">fromFile</span><span class="p">:</span> <span class="n">file</span><span class="p">,</span> <span class="nl">progressHandler</span><span class="p">:</span> <span class="p">{</span> <span class="n">progress</span> <span class="k">in</span>
+        <span class="n">NSLog</span><span class="p">(</span><span class="s">"progress \(progress)"</span><span class="p">)</span>
+    <span class="p">},</span> <span class="nl">completionHandler</span><span class="p">:</span> <span class="p">{</span> <span class="n">error</span> <span class="k">in</span>
+        <span class="k">if</span> <span class="n">error</span> <span class="o">!=</span> <span class="nb">nil</span> <span class="p">{</span>
+            <span class="n">NSLog</span><span class="p">(</span><span class="s">"Upload failed : \(error)"</span><span class="p">)</span>
+        <span class="p">}</span>
+        <span class="k">else</span> <span class="p">{</span>
+            <span class="n">NSLog</span><span class="p">(</span><span class="s">"Upload completed"</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">})</span>
+</pre></div>
+
+<ul>
+<li>Upload with data</li>
+</ul><div class="highlight highlight-swift"><pre><span class="k">let</span> <span class="n">yourData</span> <span class="o">=</span> <span class="bp">NSData</span><span class="p">(...)</span>
+
+<span class="n">net</span><span class="p">.</span><span class="n">upload</span><span class="p">(</span><span class="nl">absoluteUrl</span><span class="p">:</span> <span class="n">url</span><span class="p">,</span> <span class="nl">data</span><span class="p">:</span> <span class="n">yourData</span><span class="p">,</span> <span class="nl">progressHandler</span><span class="p">:</span> <span class="p">{</span> <span class="n">progress</span> <span class="k">in</span>
+        <span class="n">NSLog</span><span class="p">(</span><span class="s">"progress: \(progress)"</span><span class="p">)</span>
+    <span class="p">},</span> <span class="nl">completionHandler</span><span class="p">:</span> <span class="p">{</span> <span class="n">error</span> <span class="k">in</span>
+        <span class="n">NSLog</span><span class="p">(</span><span class="s">"Upload completed"</span><span class="p">)</span>
+    <span class="p">})</span>
+</pre></div>
+
+<ul>
+<li>Upload with params</li>
+</ul><div class="highlight highlight-swift"><pre><span class="k">let</span> <span class="n">image</span> <span class="o">=</span> <span class="bp">UIImage</span><span class="p">(</span><span class="nl">named</span><span class="p">:</span> <span class="s">"image_file"</span><span class="p">)</span>
+<span class="k">let</span> <span class="n">imageData</span> <span class="o">=</span> <span class="n">UIImagePNGRepresentation</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+<span class="k">let</span> <span class="n">params</span> <span class="o">=</span> <span class="p">[</span><span class="s">"number"</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s">"string"</span><span class="o">:</span> <span class="s">"net"</span><span class="p">,</span> <span class="s">"data"</span><span class="o">:</span> <span class="n">imageData</span><span class="p">]</span>
+
+<span class="n">net</span><span class="p">.</span><span class="n">upload</span><span class="p">(</span><span class="nl">absoluteUrl</span><span class="p">:</span> <span class="n">imgUrl</span><span class="p">,</span> <span class="nl">params</span><span class="p">:</span> <span class="n">params</span><span class="p">,</span> <span class="nl">progressHandler</span><span class="p">:</span> <span class="p">{</span> <span class="n">progress</span> <span class="k">in</span>
+        <span class="n">NSLog</span><span class="p">(</span><span class="s">"progress: \(progress)"</span><span class="p">)</span>
+    <span class="p">},</span> <span class="nl">completionHandler</span><span class="p">:</span> <span class="p">{</span> <span class="n">error</span> <span class="k">in</span>
+        <span class="n">NSLog</span><span class="p">(</span><span class="s">"Upload completed"</span><span class="p">)</span>
+    <span class="p">})</span>
+</pre></div>
+
+<p>By default, the upload task will be performed as POST method and </p>
+
+<ul>
+<li>
+<code>Content-Type</code> = <code>application/octet-stream</code> (upload with file or data)</li>
+<li>
+<code>Content-Type</code> = <code>multipart/form-data</code> (upload with params)</li>
+</ul><p>But you can configure the upload task before resuming.</p>
+
+<div class="highlight highlight-swift"><pre><span class="c1">// set method</span>
+<span class="n">yourUploadTask</span><span class="p">.</span><span class="n">setHttpMethod</span><span class="p">(.</span><span class="n">PUT</span><span class="p">)</span>
+
+<span class="c1">// set header field</span>
+<span class="n">yourUploadTask</span><span class="p">.</span><span class="n">setValue</span><span class="p">(</span><span class="nl">value</span><span class="p">:</span> <span class="s">"your_value"</span><span class="p">,</span> <span class="nl">forHttpHeaderField</span><span class="p">:</span> <span class="s">"header_field"</span><span class="p">)</span>
+</pre></div>
+
+<h2>
+<a name="in-progress" class="anchor" href="#in-progress"><span class="octicon octicon-link"></span></a>In progress</h2>
+
+<ul>
+<li>Batch of operations</li>
+<li>Basic authentiacation</li>
+</ul><h2>
+<a name="integration" class="anchor" href="#integration"><span class="octicon octicon-link"></span></a>Integration</h2>
+
+<p>Just drag Net folder to the project tree</p>
         </section>
 
         <footer>
