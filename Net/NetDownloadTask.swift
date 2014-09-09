@@ -62,7 +62,7 @@ class DownloadTask
     func resume() {
         if state == .Canceled || state == .Failed {
             if resumeData != nil {
-                task = session.downloadTaskWithResumeData(resumeData)
+                task = session.downloadTaskWithResumeData(resumeData!)
             }
             else {
                 task = session.downloadTaskWithRequest(request)
