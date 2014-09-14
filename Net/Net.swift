@@ -253,7 +253,7 @@ class Net : NSObject, NSURLSessionDataDelegate, NSURLSessionDownloadDelegate, NS
         downloader?.updateProgress(Float(progress))
     }
     
-    func URLSession(session: NSURLSession!, downloadTask: NSURLSessionDownloadTask!, didFinishDownloadingToURL location: NSURL!) {
+    func URLSession(session: NSURLSession, downloadTask: NSURLSessionDownloadTask, didFinishDownloadingToURL location: NSURL) {
         var downloader = downloaders[downloadTask]
         downloader?.didComplete(location, error: nil)
         downloaders.removeValueForKey(downloadTask)
