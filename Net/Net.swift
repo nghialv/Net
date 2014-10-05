@@ -49,14 +49,18 @@ class Net : NSObject, NSURLSessionDataDelegate, NSURLSessionDownloadDelegate, NS
     // upload tasks dictionary
     private var uploaders = [NSURLSessionUploadTask: UploadTask]()
     
-    init(baseUrlString: String) {
+    init(baseUrlString: String, var headers: Dictionary<String, String>) {
         baseUrl = NSURL(string: baseUrlString)
         requestSerializer = RequestSerialization()
         
         // config defaul session
         sessionConfig = NSURLSessionConfiguration.defaultSessionConfiguration()
         sessionConfig.allowsCellularAccess = true
-        sessionConfig.HTTPAdditionalHeaders = ["Accept": "application/json,application/xml,image/png,image/jpeg"]
+        
+        // set custom headers
+        headers.updateValue("application/json,application/xml,image/png,image/jpeg", forKey: "Accept")
+        sessionConfig.HTTPAdditionalHeaders = headers
+        
         sessionConfig.timeoutIntervalForRequest = 30.0
         sessionConfig.timeoutIntervalForResource = 60.0
         sessionConfig.HTTPMaximumConnectionsPerHost = HTTPMaximumconnectionsPerHost
@@ -64,8 +68,14 @@ class Net : NSObject, NSURLSessionDataDelegate, NSURLSessionDownloadDelegate, NS
         session = NSURLSession(configuration: sessionConfig)
     }
     
+    convenience init(baseUrlString: String) {
+        var headers = [String: String]()
+        self.init(baseUrlString: baseUrlString, headers: headers)
+    }
+
     convenience override init() {
-        self.init(baseUrlString: "")
+        var headers = [String: String]()
+        self.init(baseUrlString: "", headers: headers)
     }
     
     func setupSession(backgroundIdentifier: String? = nil) {
