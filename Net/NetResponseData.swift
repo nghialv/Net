@@ -13,12 +13,12 @@ class ResponseData
 {
     var urlResponse : NSURLResponse
     var data: NSData
-    
+
     init(response: NSURLResponse, data: NSData) {
         self.urlResponse = response
         self.data = data
     }
-   
+
     /**
     *  parse json with urlResponse
     *
@@ -35,10 +35,10 @@ class ResponseData
         else if error != nil {
             error.memory = NSError(domain: "HTTP_ERROR_CODE", code: httpResponse.statusCode, userInfo: nil)
         }
-        
+
         return nil
     }
-    
+
     /**
     *  convert urlResponse to image
     *
@@ -52,16 +52,16 @@ class ResponseData
         else if error != nil {
             error.memory = NSError(domain: "HTTP_ERROR_CODE", code: httpResponse.statusCode, userInfo: nil)
         }
-        
+
         return nil
     }
-    
+
     /**
     *  parse xml
     *
     *  @param NSXMLParserDelegate
     *
-    *  @return 
+    *  @return
     */
     func parseXml(delegate: NSXMLParserDelegate, error: NSErrorPointer = nil) -> Bool {
         let httpResponse = urlResponse as NSHTTPURLResponse
@@ -74,7 +74,7 @@ class ResponseData
         else if error != nil {
             error.memory = NSError(domain: "HTTP_ERROR_CODE", code: httpResponse.statusCode, userInfo: nil)
         }
-        
+
         return false
     }
 }
