@@ -26,8 +26,8 @@ class RequestSerialization
     */
     func requestWithMethod(method: HttpMethod, urlString: String, params: NSDictionary?, error: NSErrorPointer?) -> (NSMutableURLRequest) {
         let url = NSURL(string: urlString)
-        let request = NSMutableURLRequest(URL: url)
-        request.HTTPMethod = method.toRaw()
+        let request = NSMutableURLRequest(URL: url!)
+        request.HTTPMethod = method.rawValue
         request.HTTPShouldUsePipelining = HTTPShouldUsePipelining
         request.HTTPShouldHandleCookies = HTTPSouhdHandleCookies
         request.allowsCellularAccess = allowsCellularAccess
