@@ -40,9 +40,9 @@ class DownloadTask
         
         // create task
         let url = NSURL(string: absoluteUrl)
-        request = NSMutableURLRequest(URL: url)
+        request = NSMutableURLRequest(URL: url!)
         // TODO: config for request
-        request.HTTPMethod = HttpMethod.GET.toRaw()
+        request.HTTPMethod = HttpMethod.GET.rawValue
         task = session.downloadTaskWithRequest(request)
         
         self.progressHandler = progressHandler

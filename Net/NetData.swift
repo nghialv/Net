@@ -25,7 +25,7 @@ enum MimeType: String {
         case .ImageGif:
             fallthrough
         case .Json:
-            return self.toRaw()
+            return self.rawValue
         case .Unknown:
             fallthrough
         default:

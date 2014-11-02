@@ -36,8 +36,8 @@ class UploadTask
         self.session = session
         self.delegate = delegate
         let url = NSURL(string: absoluteUrl)
-        self.request = NSMutableURLRequest(URL: url)
-        request.HTTPMethod = HttpMethod.POST.toRaw()
+        self.request = NSMutableURLRequest(URL: url!)
+        request.HTTPMethod = HttpMethod.POST.rawValue
     
         self.progressHandler = progressHandler
         self.completionHandler = completionHandler
@@ -78,7 +78,7 @@ class UploadTask
     }
     
     func setHttpMethod(method: HttpMethod) {
-        request.HTTPMethod = method.toRaw()
+        request.HTTPMethod = method.rawValue
     }
     
     func setValue(value: String, forHttpHeaderField field: String) {

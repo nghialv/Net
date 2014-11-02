@@ -49,10 +49,10 @@ class Net : NSObject, NSURLSessionDataDelegate, NSURLSessionDownloadDelegate, NS
     // upload tasks dictionary
     private var uploaders = [NSURLSessionUploadTask: UploadTask]()
     
-    init(baseUrlString: String, var headers: Dictionary<String, String>) {
-        baseUrl = NSURL(string: baseUrlString)
+    init(var baseUrlString: String, var headers: Dictionary<String, String>) {
+        baseUrl = NSURL(string: baseUrlString)!
         requestSerializer = RequestSerialization()
-        
+
         // config defaul session
         sessionConfig = NSURLSessionConfiguration.defaultSessionConfiguration()
         sessionConfig.allowsCellularAccess = true
@@ -302,10 +302,10 @@ class Net : NSObject, NSURLSessionDataDelegate, NSURLSessionDownloadDelegate, NS
     *  @return request instance
     */
     private func httpRequest(method: HttpMethod, url: String, params: NSDictionary?, successHandler: SuccessHandler, failureHandler: FailureHandler, isAbsoluteUrl: Bool = false) -> NSURLSessionTask {
-        let urlString = isAbsoluteUrl ? url : NSURL(string: url, relativeToURL: baseUrl).absoluteString
-        NSLog(urlString!)
+        let urlString = isAbsoluteUrl ? url : "\(baseUrl.absoluteString!)\(url)"
+        NSLog(urlString)
         
-        let request = requestSerializer.requestWithMethod(method, urlString: urlString!, params: params, error: nil)
+        let request = requestSerializer.requestWithMethod(method, urlString: urlString, params: params, error: nil)
         let task = createSessionTaskWithRequest(request, successHandler: successHandler, failureHandler: failureHandler)
         task.resume()
         
