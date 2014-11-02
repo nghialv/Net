@@ -49,7 +49,7 @@ class Net : NSObject, NSURLSessionDataDelegate, NSURLSessionDownloadDelegate, NS
     // upload tasks dictionary
     private var uploaders = [NSURLSessionUploadTask: UploadTask]()
     
-    init(var baseUrlString: String, var headers: Dictionary<String, String>) {
+    init(baseUrlString: String, var headers: Dictionary<String, String>) {
         baseUrl = NSURL(string: baseUrlString)!
         requestSerializer = RequestSerialization()
 

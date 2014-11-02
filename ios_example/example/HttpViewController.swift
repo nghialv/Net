@@ -98,7 +98,7 @@ class HttpViewController: UIViewController, NSXMLParserDelegate {
             "floatNumber": 1.5,
             "array": [10, 20, 30],
             "dictionary": ["x": 100.0, "y": 200.0],
-            "icon": NetData(pngImage: img, filename: "myIcon")]
+            "icon": NetData(pngImage: img!, filename: "myIcon")]
         
         net.POST(url, params: params, successHandler: {
             responseData in
