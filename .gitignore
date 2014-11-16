@@ -16,7 +16,3 @@ build/*
 xcuserdata
 profile
 *.moved-aside
-
-#CocoaPod
-Pods/*
-Podfile.lock
