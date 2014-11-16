@@ -4,17 +4,19 @@ Net is a HttpRequest wrapper written in Swift
 
 Features
 -----
-* GET, POST, PUT, DELETE method
-* Powerful request params: nested params, number, string, dic, array, image, data
-* Json, Image, Xml Response
-* Download file: resume, suspend, cancel
-* Upload file, data, params(multi-part)
-* Progress closure
-* Background donwload, upload
-* Authentication
-* Batch of operations
-* BaseURL
-* Customizable header
+- [x] GET, POST, PUT, DELETE method
+- [x] Powerful request params: nested params, number, string, dic, array, image, data
+- [x] Json, Image, Xml Response
+- [x] Download file: resume, suspend, cancel
+- [x] Upload file, data, params(multi-part)
+- [x] Progress closure
+- [x] Background donwload, upload
+- [x] Authentication
+- [x] Batch of operations
+- [x] BaseURL
+- [x] Customizable header
+- [ ] Batch of operations
+- [ ] Basic authentiacation
 
 Demo app
 -----
@@ -244,11 +246,6 @@ yourUploadTask.setHttpMethod(.PUT)
 // set header field
 yourUploadTask.setValue(value: "your_value", forHttpHeaderField: "header_field")
 ```
-
-## In progress
-* Batch of operations
-* Basic authentiacation
-
 
 Integration
 -----
