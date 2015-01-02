@@ -21,6 +21,8 @@ class UploadTask
     
     typealias ProgressHandler = (Float) -> ()
     typealias CompletionHandler = (NSError?) -> ()
+    typealias SuccessHandler = (ResponseData) -> ()
+    typealias FailureHandler = (NSError!) -> ()
     
     private var session: NSURLSession
     private var delegate: UploadTaskDelegate
@@ -28,11 +30,13 @@ class UploadTask
     private var request: NSMutableURLRequest
     
     private var progressHandler: ProgressHandler?
-    private var completionHandler: CompletionHandler
+    private var successHandler: SuccessHandler?
+    private var failureHandler: FailureHandler?
+
     
     private var state: State = .Init
    
-    init(_ session: NSURLSession,_ delegate: UploadTaskDelegate,_ absoluteUrl: String,_ progressHandler: ProgressHandler?,_ completionHandler: CompletionHandler) {
+    init(_ session: NSURLSession,_ delegate: UploadTaskDelegate,_ absoluteUrl: String,_ progressHandler: ProgressHandler?, _ successHandler: SuccessHandler? = nil, _ failureHandler: FailureHandler? = nil) {
         self.session = session
         self.delegate = delegate
         let url = NSURL(string: absoluteUrl)
@@ -40,23 +44,23 @@ class UploadTask
         request.HTTPMethod = HttpMethod.POST.rawValue
     
         self.progressHandler = progressHandler
-        self.completionHandler = completionHandler
+        self.successHandler = successHandler
+        self.failureHandler = failureHandler
     }
     
-    convenience init(session: NSURLSession, delegate: UploadTaskDelegate, absoluteUrl: String, data: NSData, progressHandler: ProgressHandler?, completionHandler: CompletionHandler) {
-        
-        self.init(session, delegate, absoluteUrl, progressHandler, completionHandler)
+    convenience init(session: NSURLSession, delegate: UploadTaskDelegate, absoluteUrl: String, data: NSData, progressHandler: ProgressHandler? = nil, successHandler: SuccessHandler? = nil, failureHandler: FailureHandler? = nil) {
+        self.init(session, delegate, absoluteUrl, progressHandler, successHandler, failureHandler)
         
         // TODO: config for request
         request.setValue("application/octet-stream", forHTTPHeaderField: "Content-Type")
-        task = session.uploadTaskWithRequest(request, fromData: data)
+        task = session.uploadTaskWithRequest(request, fromData: data){ self.didComplete($0, $1, $2) }
         
         delegate.didCreateUploadTask(task, uploadTask: self)
     }
    
-    convenience init(session: NSURLSession, delegate: UploadTaskDelegate, absoluteUrl: String, params: NSDictionary, progressHandler: ProgressHandler?, completionHandler: CompletionHandler) {
+    convenience init(session: NSURLSession, delegate: UploadTaskDelegate, absoluteUrl: String, params: NSDictionary, progressHandler: ProgressHandler? = nil, successHandler: SuccessHandler? = nil, failureHandler: FailureHandler? = nil) {
         
-        self.init(session, delegate, absoluteUrl, progressHandler, completionHandler)
+        self.init(session, delegate, absoluteUrl, progressHandler, successHandler, failureHandler)
         
         let boundary = "NET-UPLOAD-boundary-\(arc4random())-\(arc4random())"
         let paramsData = NetHelper.dataFromParamsWithBoundary(params, boundary: boundary)
@@ -64,16 +68,16 @@ class UploadTask
         request.setValue(contentType, forHTTPHeaderField: "Content-Type")
         request.setValue("\(paramsData.length)", forHTTPHeaderField: "Content-Length")
         
-        task = session.uploadTaskWithRequest(request, fromData: paramsData)
+        task = session.uploadTaskWithRequest(request, fromData: paramsData){ self.didComplete($0, $1, $2) }
         
         delegate.didCreateUploadTask(task, uploadTask: self)
     }
     
-    convenience init(session: NSURLSession, delegate: UploadTaskDelegate, absoluteUrl: String, fromFile: NSURL, progressHandler: ProgressHandler?, completionHandler: CompletionHandler) {
+    convenience init(session: NSURLSession, delegate: UploadTaskDelegate, absoluteUrl: String, fromFile: NSURL, progressHandler: ProgressHandler?, successHandler: SuccessHandler? = nil, failureHandler: FailureHandler? = nil) {
         
-        self.init(session, delegate, absoluteUrl, progressHandler, completionHandler)
-        
-        task = session.uploadTaskWithRequest(request, fromFile: fromFile)
+        self.init(session, delegate, absoluteUrl, progressHandler, successHandler, failureHandler)
+
+        task = session.uploadTaskWithRequest(request, fromFile: fromFile){ self.didComplete($0, $1, $2) }
         delegate.didCreateUploadTask(task, uploadTask: self)
     }
     
@@ -108,8 +112,16 @@ class UploadTask
         self.progressHandler?(progress)
     }
     
-    func didComplete(error: NSError?) {
+    func didComplete(_ data: NSData, _ response: NSURLResponse, _ error: NSError?) {
         state = error != nil ? .Failed : .Completed
-        completionHandler(error)
+        if (error != nil) {
+            self.failureHandler?(error)
+        }
+        else {
+            let responseData = ResponseData(response: response, data: data)
+            self.successHandler?(responseData)
+        }
+        
+        delegate.didRemoveUploadTask(task)
     }
 }
