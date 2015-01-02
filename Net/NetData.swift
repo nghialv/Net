@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-enum MimeType: String {
+public enum MimeType: String {
     case ImageJpeg = "image/jpeg"
     case ImagePng = "image/png"
     case ImageGif = "image/gif"
@@ -34,25 +34,25 @@ enum MimeType: String {
     }
 }
 
-class NetData
+public class NetData
 {
-    let data: NSData
-    let mimeType: MimeType
-    let filename: String
+    public let data: NSData
+    public let mimeType: MimeType
+    public let filename: String
     
-    init(data: NSData, mimeType: MimeType, filename: String) {
+    public init(data: NSData, mimeType: MimeType, filename: String) {
         self.data = data
         self.mimeType = mimeType
         self.filename = filename
     }
     
-    init(pngImage: UIImage, filename: String) {
+    public init(pngImage: UIImage, filename: String) {
         data = UIImagePNGRepresentation(pngImage)
         self.mimeType = MimeType.ImagePng
         self.filename = filename
     }
     
-    init(jpegImage: UIImage, compressionQuanlity: CGFloat, filename: String) {
+    public init(jpegImage: UIImage, compressionQuanlity: CGFloat, filename: String) {
         data = UIImageJPEGRepresentation(jpegImage, compressionQuanlity)
         self.mimeType = MimeType.ImageJpeg
         self.filename = filename

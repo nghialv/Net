@@ -9,10 +9,10 @@
 import Foundation
 import UIKit
 
-class ResponseData
+public class ResponseData
 {
-    var urlResponse : NSURLResponse
-    var data: NSData
+    public let urlResponse : NSURLResponse
+    public let data: NSData
 
     init(response: NSURLResponse, data: NSData) {
         self.urlResponse = response
@@ -26,7 +26,7 @@ class ResponseData
     *
     *  @return json dictionary
     */
-    func json(error: NSErrorPointer = nil) -> NSDictionary? {
+    public func json(error: NSErrorPointer = nil) -> NSDictionary? {
         let httpResponse = urlResponse as NSHTTPURLResponse
         if httpResponse.statusCode == 200 {
             let jsonData = NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments, error: error) as NSDictionary
@@ -44,7 +44,7 @@ class ResponseData
     *
     *  @return UIImage
     */
-    func image(error: NSErrorPointer = nil) -> UIImage? {
+    public func image(error: NSErrorPointer = nil) -> UIImage? {
         let httpResponse = urlResponse as NSHTTPURLResponse
         if httpResponse.statusCode == 200 && data.length > 0 {
             return UIImage(data: data)
@@ -63,7 +63,7 @@ class ResponseData
     *
     *  @return
     */
-    func parseXml(delegate: NSXMLParserDelegate, error: NSErrorPointer = nil) -> Bool {
+    public func parseXml(delegate: NSXMLParserDelegate, error: NSErrorPointer = nil) -> Bool {
         let httpResponse = urlResponse as NSHTTPURLResponse
         if httpResponse.statusCode == 200 {
             let xmlParser = NSXMLParser(data: data)

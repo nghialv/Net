@@ -13,7 +13,7 @@ protocol UploadTaskDelegate {
     func didRemoveUploadTask(task: NSURLSessionUploadTask)
 }
 
-class UploadTask
+public class UploadTask
 {
     enum State {
         case Init, Uploading, Suspending, Canceled, Completed, Failed
@@ -77,38 +77,38 @@ class UploadTask
         delegate.didCreateUploadTask(task, uploadTask: self)
     }
     
-    func setHttpMethod(method: HttpMethod) {
+    public func setHttpMethod(method: HttpMethod) {
         request.HTTPMethod = method.rawValue
     }
     
-    func setValue(value: String, forHttpHeaderField field: String) {
+    public func setValue(value: String, forHttpHeaderField field: String) {
         request.setValue(value, forHTTPHeaderField: field)
     }
     
-    func resume() {
+    public func resume() {
         task.resume()
         state = .Uploading
     }
     
-    func suspend() {
+    public func suspend() {
         if state == .Uploading {
             task.suspend()
             state = .Suspending
         }
     }
     
-    func cancel() {
+    public func cancel() {
         if state == .Uploading {
             task.cancel()
             state = .Canceled
         }
     }
     
-    func updateProgress(progress: Float) {
+    public func updateProgress(progress: Float) {
         self.progressHandler?(progress)
     }
     
-    func didComplete(error: NSError?) {
+    public func didComplete(error: NSError?) {
         state = error != nil ? .Failed : .Completed
         completionHandler(error)
     }

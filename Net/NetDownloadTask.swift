@@ -13,7 +13,7 @@ protocol DownloadTaskDelegate {
     func didRemoveDownloadTask(task: NSURLSessionDownloadTask)
 }
 
-class DownloadTask
+public class DownloadTask
 {
     enum State {
         case Init, Downloading, Suspending, Canceled, Completed, Failed
@@ -59,7 +59,7 @@ class DownloadTask
     *  - The server supports byte-range requests
     *  - The temporary file hasn’t been deleted by the system in response to disk space pressure
     */
-    func resume() {
+    public func resume() {
         if state == .Canceled || state == .Failed {
             if resumeData != nil {
                 task = session.downloadTaskWithResumeData(resumeData!)
@@ -79,7 +79,7 @@ class DownloadTask
     *
     *  @return
     */
-    func suspend() {
+    public func suspend() {
         if state == .Downloading {
             task.suspend()
             state = .Suspending
@@ -91,7 +91,7 @@ class DownloadTask
     *
     *  @return
     */
-    func cancel(byProducingResumeData: Bool = true) {
+    public func cancel(byProducingResumeData: Bool = true) {
         if state == .Downloading {
             if byProducingResumeData {
                 task.cancelByProducingResumeData{
@@ -111,11 +111,11 @@ class DownloadTask
     }
     
     
-    func updateProgress(progress: Float) {
+    public func updateProgress(progress: Float) {
         self.progressHandler?(progress)
     }
     
-    func didComplete(url: NSURL?, error: NSError?) {
+    public func didComplete(url: NSURL?, error: NSError?) {
         state = error != nil ? .Failed : .Completed
         self.completionHandler(url, error)
     }
