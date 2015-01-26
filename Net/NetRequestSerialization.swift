@@ -38,7 +38,6 @@ class RequestSerialization
                 // send with query params
                 let query = NetHelper.queryStringFromParams(params!)
                 let newUrlString = urlString.stringByAppendingString("?\(query)")
-                println(newUrlString)
                 request.URL = NSURL(string: newUrlString)
             }
             else {
