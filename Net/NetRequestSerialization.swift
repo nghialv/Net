@@ -57,10 +57,10 @@ class RequestSerialization
                     contentType = "application/x-www-form-urlencoded"
                 }
                 
-                if paramsData != nil {
+                if let params = paramsData {
                     request.setValue(contentType, forHTTPHeaderField: "Content-Type")
-                    request.setValue("\(paramsData?.length)", forHTTPHeaderField: "Content-Length")
-                    request.HTTPBody = paramsData
+                    request.setValue("\(params.length)", forHTTPHeaderField: "Content-Length")
+                    request.HTTPBody = params
                 }
             }
         }
