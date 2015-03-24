@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import UIKit
 
 class ResponseData
 {
@@ -42,12 +41,12 @@ class ResponseData
     /**
     *  convert urlResponse to image
     *
-    *  @return UIImage
+    *  @return AnyImage
     */
-    func image(error: NSErrorPointer = nil) -> UIImage? {
+    func image(error: NSErrorPointer = nil) -> AnyImage? {
         let httpResponse = urlResponse as NSHTTPURLResponse
         if httpResponse.statusCode == 200 && data.length > 0 {
-            return UIImage(data: data)
+            return AnyImage(data: data)
         }
         else if error != nil {
             error.memory = NSError(domain: "HTTP_ERROR_CODE", code: httpResponse.statusCode, userInfo: nil)

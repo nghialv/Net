@@ -7,7 +7,28 @@
 //
 
 import Foundation
-import UIKit
+#if os(OSX)
+    import AppKit
+    func PNGRep(image: NSImage) -> NSData! {
+        let imageRep = NSBitmapImageRep(data: image.TIFFRepresentation!)
+        return imageRep?.representationUsingType(NSBitmapImageFileType.NSPNGFileType, properties: [:])
+    }
+
+    func JPEGRep(image: NSImage, compressionQuanlity: CGFloat) -> NSData! {
+        let imageRep = NSBitmapImageRep(data: image.TIFFRepresentation!)
+        return imageRep?.representationUsingType(NSBitmapImageFileType.NSJPEGFileType, properties: [NSImageCompressionFactor:compressionQuanlity])
+    }
+    #else
+    import UIKit
+
+    func PNGRep(image: UIImage) -> NSData! {
+        return UIImagePNGRepresentation(image)
+    }
+
+    func JPEGRep(image: UIImage, compressionQuanlity: CGFloat) -> NSData! {
+        return UIImageJPEGRepresentation(image, compressionQuanlity)
+    }
+#endif
 
 enum MimeType: String {
     case ImageJpeg = "image/jpeg"
@@ -46,14 +67,14 @@ class NetData
         self.filename = filename
     }
     
-    init(pngImage: UIImage, filename: String) {
-        data = UIImagePNGRepresentation(pngImage)
+    init(pngImage: AnyImage, filename: String) {
+        data = PNGRep(pngImage)
         self.mimeType = MimeType.ImagePng
         self.filename = filename
     }
     
-    init(jpegImage: UIImage, compressionQuanlity: CGFloat, filename: String) {
-        data = UIImageJPEGRepresentation(jpegImage, compressionQuanlity)
+    init(jpegImage: AnyImage, compressionQuanlity: CGFloat, filename: String) {
+        data = JPEGRep(jpegImage, compressionQuanlity)
         self.mimeType = MimeType.ImageJpeg
         self.filename = filename
     }
