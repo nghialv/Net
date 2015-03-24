@@ -12,6 +12,17 @@ import Foundation
 // TODO: cache
 // TODO: batch
 
+#if os(OSX)
+    import AppKit
+    typealias AnyImage = NSImage
+
+    #else
+
+    import UIKit
+    typealias AnyImage = UIImage
+
+#endif
+
 enum HttpMethod: String {
     case GET = "GET"
     case POST = "POST"
