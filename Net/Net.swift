@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 // TODO: authentication
 // TODO: cache
@@ -81,8 +82,17 @@ class Net : NSObject, NSURLSessionDataDelegate, NSURLSessionDownloadDelegate, NS
     func setupSession(backgroundIdentifier: String? = nil) {
         if backgroundIdentifier != nil {
             if backgroundSession == nil {
-                //backgroundSessionConfig = NSURLSessionConfiguration.backgroundSessionConfigurationWithIdentifier(backgroundIdentifier!)
-                backgroundSessionConfig = NSURLSessionConfiguration.backgroundSessionConfiguration(backgroundIdentifier!)
+                
+                func systemVersionGreaterThanOrEqualTo(version: String) -> Bool {
+                    let osVersion = UIDevice.currentDevice().systemVersion
+                    return osVersion.compare(version, options: NSStringCompareOptions.NumericSearch) != NSComparisonResult.OrderedAscending
+                }
+                
+                if systemVersionGreaterThanOrEqualTo("8.0") {
+                    backgroundSessionConfig = NSURLSessionConfiguration.backgroundSessionConfigurationWithIdentifier(backgroundIdentifier!)
+                } else {
+                    backgroundSessionConfig = NSURLSessionConfiguration.backgroundSessionConfiguration(backgroundIdentifier!)
+                }
                 backgroundSessionConfig!.HTTPMaximumConnectionsPerHost = HTTPMaximumconnectionsPerHost
                 
                 backgroundSession = NSURLSession(configuration: backgroundSessionConfig, delegate: self, delegateQueue: nil)
@@ -113,7 +123,7 @@ class Net : NSObject, NSURLSessionDataDelegate, NSURLSessionDownloadDelegate, NS
    
     func GET(# absoluteUrl: String, params: NSDictionary?, successHandler: SuccessHandler, failureHandler: FailureHandler)
         -> NSURLSessionTask {
-        return httpRequest(.GET, url: absoluteUrl, params: params, successHandler: successHandler, failureHandler: failureHandler, isAbsoluteUrl: true)
+        return httpRequest(.GET, url: absoluteUrl, params: params, isAbsoluteUrl: true, successHandler: successHandler, failureHandler: failureHandler)
     }
     
     // POST
@@ -124,7 +134,7 @@ class Net : NSObject, NSURLSessionDataDelegate, NSURLSessionDownloadDelegate, NS
     
     func POST(# absoluteUrl: String, params: NSDictionary?, successHandler: SuccessHandler, failureHandler: FailureHandler)
         -> NSURLSessionTask {
-        return httpRequest(.POST, url: absoluteUrl, params: params, successHandler: successHandler, failureHandler: failureHandler, isAbsoluteUrl: true)
+        return httpRequest(.POST, url: absoluteUrl, params: params, isAbsoluteUrl: true, successHandler: successHandler, failureHandler: failureHandler)
     }
     
     // PUT
@@ -135,7 +145,7 @@ class Net : NSObject, NSURLSessionDataDelegate, NSURLSessionDownloadDelegate, NS
     
     func PUT(# absoluteUrl: String, params: NSDictionary?, successHandler: SuccessHandler, failureHandler: FailureHandler)
         -> NSURLSessionTask {
-        return httpRequest(.PUT, url: absoluteUrl, params: params, successHandler: successHandler, failureHandler: failureHandler, isAbsoluteUrl: true)
+        return httpRequest(.PUT, url: absoluteUrl, params: params, isAbsoluteUrl: true, successHandler: successHandler, failureHandler: failureHandler)
     }
     
     // DELETE
@@ -145,7 +155,7 @@ class Net : NSObject, NSURLSessionDataDelegate, NSURLSessionDownloadDelegate, NS
     }
     
     func DELETE(# absoluteUrl: String, params: NSDictionary?, successHandler: SuccessHandler, failureHandler: FailureHandler) -> NSURLSessionTask {
-        return httpRequest(.DELETE, url: absoluteUrl, params: params, successHandler: successHandler, failureHandler: failureHandler, isAbsoluteUrl: true)
+        return httpRequest(.DELETE, url: absoluteUrl, params: params, isAbsoluteUrl: true, successHandler: successHandler, failureHandler: failureHandler)
     }
 
     // DOWNLOAD
@@ -296,7 +306,7 @@ class Net : NSObject, NSURLSessionDataDelegate, NSURLSessionDownloadDelegate, NS
     *
     *  @return request instance
     */
-    private func httpRequest(method: HttpMethod, url: String, params: NSDictionary?, successHandler: SuccessHandler, failureHandler: FailureHandler, isAbsoluteUrl: Bool = false) -> NSURLSessionTask {
+    private func httpRequest(method: HttpMethod, url: String, params: NSDictionary?, isAbsoluteUrl: Bool = false, successHandler: SuccessHandler, failureHandler: FailureHandler) -> NSURLSessionTask {
         let urlString = isAbsoluteUrl ? url : "\(baseUrl.absoluteString!)\(url)"
         NSLog(urlString)
         
