@@ -82,7 +82,7 @@ class Net : NSObject, NSURLSessionDataDelegate, NSURLSessionDownloadDelegate, NS
     func setupSession(backgroundIdentifier: String? = nil) {
         if backgroundIdentifier != nil {
             if backgroundSession == nil {
-                
+                /*
                 func systemVersionGreaterThanOrEqualTo(version: String) -> Bool {
                     let osVersion = UIDevice.currentDevice().systemVersion
                     return osVersion.compare(version, options: NSStringCompareOptions.NumericSearch) != NSComparisonResult.OrderedAscending
@@ -93,6 +93,8 @@ class Net : NSObject, NSURLSessionDataDelegate, NSURLSessionDownloadDelegate, NS
                 } else {
                     backgroundSessionConfig = NSURLSessionConfiguration.backgroundSessionConfiguration(backgroundIdentifier!)
                 }
+                */
+                backgroundSessionConfig = NSURLSessionConfiguration.backgroundSessionConfigurationWithIdentifier(backgroundIdentifier!)
                 backgroundSessionConfig!.HTTPMaximumConnectionsPerHost = HTTPMaximumconnectionsPerHost
                 
                 backgroundSession = NSURLSession(configuration: backgroundSessionConfig, delegate: self, delegateQueue: nil)

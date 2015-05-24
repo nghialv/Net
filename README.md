@@ -15,8 +15,6 @@ Features
 - [x] Batch of operations
 - [x] BaseURL
 - [x] Customizable header
-- [ ] Batch of operations
-- [ ] Basic authentiacation
 
 Demo app
 -----
