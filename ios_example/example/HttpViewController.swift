@@ -19,11 +19,11 @@ class HttpViewController: UIViewController, NSXMLParserDelegate {
     }
 
     // MARK: NSXMLParser delegate
-    func parser(parser: NSXMLParser!, didStartElement elementName: String!, namespaceURI: String!, qualifiedName qName: String!, attributes attributeDict: [NSObject : AnyObject]!) {
+    func parser(parser: NSXMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [NSObject : AnyObject]) {
         NSLog("did start element : \(elementName)")
     }
     
-    func parser(parser: NSXMLParser!, foundCharacters string: String!) {
+    func parser(parser: NSXMLParser, foundCharacters string: String?) {
     }
     
     // MARK: Actions

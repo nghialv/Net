@@ -208,13 +208,13 @@ class Net : NSObject, NSURLSessionDataDelegate, NSURLSessionDownloadDelegate, NS
     }
     
     // MARK: NSURLSessionDelegate
-    func URLSessionDidFinishEventsForBackgroundURLSession(session: NSURLSession!) {
+    func URLSessionDidFinishEventsForBackgroundURLSession(session: NSURLSession) {
         // this will be call for every backgroud event
         eventsForBackgroundHandler?(session)
     }
     
     // MARK: NSURLSessionTaskDelegate
-    func URLSession(session: NSURLSession!, task: NSURLSessionTask!, didCompleteWithError error: NSError!) {
+    func URLSession(session: NSURLSession, task: NSURLSessionTask, didCompleteWithError error: NSError?) {
         if (error != nil) {
             if let downloadTask = task as? NSURLSessionDownloadTask {
                 let downloader = downloaders[downloadTask]
@@ -236,7 +236,7 @@ class Net : NSObject, NSURLSessionDataDelegate, NSURLSessionDownloadDelegate, NS
         }
     }
 
-    func URLSession(session: NSURLSession!, task: NSURLSessionTask!, didSendBodyData bytesSent: Int64, totalBytesSent: Int64, totalBytesExpectedToSend: Int64) {
+    func URLSession(session: NSURLSession, task: NSURLSessionTask, didSendBodyData bytesSent: Int64, totalBytesSent: Int64, totalBytesExpectedToSend: Int64) {
         // upload progress
         if let uploadTask = task as? NSURLSessionUploadTask {
             let progress = Double(totalBytesSent) / Double(totalBytesExpectedToSend)
@@ -246,13 +246,12 @@ class Net : NSObject, NSURLSessionDataDelegate, NSURLSessionDownloadDelegate, NS
         }
     }
     
-    func URLSession(session: NSURLSession!, task: NSURLSessionTask!, willPerformHTTPRedirection response: NSHTTPURLResponse!, newRequest request: NSURLRequest!, completionHandler: ((NSURLRequest!) -> Void)!) {
-        
+    func URLSession(session: NSURLSession, task: NSURLSessionTask, willPerformHTTPRedirection response: NSHTTPURLResponse, newRequest request: NSURLRequest, completionHandler: (NSURLRequest!) -> Void) {
     }
 
     
     // MARK: NSURLSessionDownloadDelegate
-    func URLSession(session: NSURLSession!, downloadTask: NSURLSessionDownloadTask!, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
+    func URLSession(session: NSURLSession, downloadTask: NSURLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
         let progress = totalBytesExpectedToWrite == NSURLSessionTransferSizeUnknown ? -1.0 : Double(totalBytesWritten) / Double(totalBytesExpectedToWrite)
         
         let downloader = downloaders[downloadTask]

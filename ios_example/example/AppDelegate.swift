@@ -23,18 +23,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         NSLog("handle event for background session")
     }
     
-    func applicationDidEnterBackground(application: UIApplication!) {
+    func applicationDidEnterBackground(application: UIApplication) {
         NSLog("App did enter background")
     }
-
-    func applicationWillEnterForeground(application: UIApplication!) {
-    }
-
-    func applicationDidBecomeActive(application: UIApplication!) {
-    }
-
-    func applicationWillTerminate(application: UIApplication!) {
-    }
-
 }
 
