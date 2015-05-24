@@ -27,15 +27,15 @@ class ResponseData
     *  @return json dictionary
     */
     func json(error: NSErrorPointer = nil) -> NSDictionary? {
-        let httpResponse = urlResponse as NSHTTPURLResponse
-        if httpResponse.statusCode == 200 {
-            let jsonData = NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments, error: error) as NSDictionary
-            return jsonData
+        if let httpResponse = urlResponse as? NSHTTPURLResponse {
+            if httpResponse.statusCode == 200 {
+                let jsonData = NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments, error: error) as! NSDictionary
+                return jsonData
+            }
+            else if error != nil {
+                error.memory = NSError(domain: "HTTP_ERROR_CODE", code: httpResponse.statusCode, userInfo: nil)
+            }
         }
-        else if error != nil {
-            error.memory = NSError(domain: "HTTP_ERROR_CODE", code: httpResponse.statusCode, userInfo: nil)
-        }
-
         return nil
     }
 
@@ -45,14 +45,14 @@ class ResponseData
     *  @return UIImage
     */
     func image(error: NSErrorPointer = nil) -> UIImage? {
-        let httpResponse = urlResponse as NSHTTPURLResponse
-        if httpResponse.statusCode == 200 && data.length > 0 {
-            return UIImage(data: data)
+        if let httpResponse = urlResponse as? NSHTTPURLResponse {
+            if httpResponse.statusCode == 200 && data.length > 0 {
+                return UIImage(data: data)
+            }
+            else if error != nil {
+                error.memory = NSError(domain: "HTTP_ERROR_CODE", code: httpResponse.statusCode, userInfo: nil)
+            }
         }
-        else if error != nil {
-            error.memory = NSError(domain: "HTTP_ERROR_CODE", code: httpResponse.statusCode, userInfo: nil)
-        }
-
         return nil
     }
 
@@ -64,17 +64,17 @@ class ResponseData
     *  @return
     */
     func parseXml(delegate: NSXMLParserDelegate, error: NSErrorPointer = nil) -> Bool {
-        let httpResponse = urlResponse as NSHTTPURLResponse
-        if httpResponse.statusCode == 200 {
-            let xmlParser = NSXMLParser(data: data)
-            xmlParser.delegate = delegate
-            xmlParser.parse()
-            return true
+        if let httpResponse = urlResponse as? NSHTTPURLResponse {
+            if httpResponse.statusCode == 200 {
+                let xmlParser = NSXMLParser(data: data)
+                xmlParser.delegate = delegate
+                xmlParser.parse()
+                return true
+            }
+            else if error != nil {
+                error.memory = NSError(domain: "HTTP_ERROR_CODE", code: httpResponse.statusCode, userInfo: nil)
+            }
         }
-        else if error != nil {
-            error.memory = NSError(domain: "HTTP_ERROR_CODE", code: httpResponse.statusCode, userInfo: nil)
-        }
-
         return false
     }
 }

@@ -30,7 +30,7 @@ class DownloadViewController : UIViewController
         net = Net()
         net.setupSession(backgroundIdentifier: "com.nghialv.download")
         
-        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         net.eventsForBackgroundHandler = { [weak appDelegate](urlSession: NSURLSession) in
             // this will be call for every backgroud event
             urlSession.getDownloadingTasksCount{ downloadingTaskCount in
@@ -128,7 +128,7 @@ class DownloadViewController : UIViewController
                     let filename = url.lastPathComponent
                 
                     let urls = fileManager.URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
-                    let documentDir = urls[0] as NSURL
+                    let documentDir = urls[0] as! NSURL
                     let desUrl = documentDir.URLByAppendingPathComponent(filename)
                 
                     if fileManager.fileExistsAtPath(desUrl.path!) {

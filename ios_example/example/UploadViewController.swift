@@ -31,7 +31,7 @@ class UploadViewController : UIViewController
         net = Net()
         net.setupSession(backgroundIdentifier: "com.nghiav.upload")
         
-        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         net.eventsForBackgroundHandler = { [weak appDelegate](urlSession: NSURLSession) in
             // this will be call for every backgroud event
             urlSession.getUploadingTaskCount{ uploadingTaskCount in
