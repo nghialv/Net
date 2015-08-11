@@ -28,9 +28,10 @@ class ResponseData
     */
     func json(error: NSErrorPointer = nil) -> NSDictionary? {
         if let httpResponse = urlResponse as? NSHTTPURLResponse {
-            if httpResponse.statusCode == 200 {
-                let jsonData = NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments, error: error) as! NSDictionary
-                return jsonData
+            if httpResponse.statusCode == 200{
+                if let jsonData = NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments, error: error) as? NSDictionary {
+                    return jsonData
+                }
             }
             else if error != nil {
                 error.memory = NSError(domain: "HTTP_ERROR_CODE", code: httpResponse.statusCode, userInfo: nil)
