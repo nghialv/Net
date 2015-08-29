@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import SwiftyJSON
 
 class ResponseData
 {
@@ -26,10 +27,10 @@ class ResponseData
     *
     *  @return json dictionary
     */
-    func json(error: NSErrorPointer = nil) -> NSDictionary? {
+    func json(error: NSErrorPointer = nil) -> JSON? {
         if let httpResponse = urlResponse as? NSHTTPURLResponse {
-            if httpResponse.statusCode == 200 {
-                let jsonData = NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments, error: error) as! NSDictionary
+            if httpResponse.statusCode == 200{
+                let jsonData = JSON(data: data)
                 return jsonData
             }
             else if error != nil {
