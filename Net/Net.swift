@@ -70,12 +70,12 @@ class Net : NSObject, NSURLSessionDataDelegate, NSURLSessionDownloadDelegate, NS
     }
     
     convenience init(baseUrlString: String) {
-        var headers = [String: String]()
+        let headers = [String: String]()
         self.init(baseUrlString: baseUrlString, headers: headers)
     }
 
     convenience override init() {
-        var headers = [String: String]()
+        let headers = [String: String]()
         self.init(baseUrlString: "", headers: headers)
     }
     
@@ -97,7 +97,7 @@ class Net : NSObject, NSURLSessionDataDelegate, NSURLSessionDownloadDelegate, NS
                 backgroundSessionConfig = NSURLSessionConfiguration.backgroundSessionConfigurationWithIdentifier(backgroundIdentifier!)
                 backgroundSessionConfig!.HTTPMaximumConnectionsPerHost = HTTPMaximumconnectionsPerHost
                 
-                backgroundSession = NSURLSession(configuration: backgroundSessionConfig, delegate: self, delegateQueue: nil)
+                backgroundSession = NSURLSession(configuration: backgroundSessionConfig!, delegate: self, delegateQueue: nil)
             }
         }
         else {
@@ -123,7 +123,7 @@ class Net : NSObject, NSURLSessionDataDelegate, NSURLSessionDownloadDelegate, NS
         return httpRequest(.GET, url: url, params: params, successHandler: successHandler, failureHandler: failureHandler)
     }
    
-    func GET(# absoluteUrl: String, params: NSDictionary?, successHandler: SuccessHandler, failureHandler: FailureHandler)
+    func GET(absoluteUrl  absoluteUrl: String, params: NSDictionary?, successHandler: SuccessHandler, failureHandler: FailureHandler)
         -> NSURLSessionTask {
         return httpRequest(.GET, url: absoluteUrl, params: params, isAbsoluteUrl: true, successHandler: successHandler, failureHandler: failureHandler)
     }
@@ -134,7 +134,7 @@ class Net : NSObject, NSURLSessionDataDelegate, NSURLSessionDownloadDelegate, NS
         return httpRequest(.POST, url: url, params: params, successHandler: successHandler, failureHandler: failureHandler)
     }
     
-    func POST(# absoluteUrl: String, params: NSDictionary?, successHandler: SuccessHandler, failureHandler: FailureHandler)
+    func POST(absoluteUrl  absoluteUrl: String, params: NSDictionary?, successHandler: SuccessHandler, failureHandler: FailureHandler)
         -> NSURLSessionTask {
         return httpRequest(.POST, url: absoluteUrl, params: params, isAbsoluteUrl: true, successHandler: successHandler, failureHandler: failureHandler)
     }
@@ -145,7 +145,7 @@ class Net : NSObject, NSURLSessionDataDelegate, NSURLSessionDownloadDelegate, NS
         return httpRequest(.PUT, url: url, params: params, successHandler: successHandler, failureHandler: failureHandler)
     }
     
-    func PUT(# absoluteUrl: String, params: NSDictionary?, successHandler: SuccessHandler, failureHandler: FailureHandler)
+    func PUT(absoluteUrl  absoluteUrl: String, params: NSDictionary?, successHandler: SuccessHandler, failureHandler: FailureHandler)
         -> NSURLSessionTask {
         return httpRequest(.PUT, url: absoluteUrl, params: params, isAbsoluteUrl: true, successHandler: successHandler, failureHandler: failureHandler)
     }
@@ -156,12 +156,12 @@ class Net : NSObject, NSURLSessionDataDelegate, NSURLSessionDownloadDelegate, NS
         return httpRequest(.DELETE, url: url, params: params, successHandler: successHandler, failureHandler: failureHandler)
     }
     
-    func DELETE(# absoluteUrl: String, params: NSDictionary?, successHandler: SuccessHandler, failureHandler: FailureHandler) -> NSURLSessionTask {
+    func DELETE(absoluteUrl  absoluteUrl: String, params: NSDictionary?, successHandler: SuccessHandler, failureHandler: FailureHandler) -> NSURLSessionTask {
         return httpRequest(.DELETE, url: absoluteUrl, params: params, isAbsoluteUrl: true, successHandler: successHandler, failureHandler: failureHandler)
     }
 
     // DOWNLOAD
-    func download(# absoluteUrl: String, startImmediately: Bool = true, progress: ProgressHandler, completionHandler: CompletionHandler) -> DownloadTask? {
+    func download(absoluteUrl  absoluteUrl: String, startImmediately: Bool = true, progress: ProgressHandler, completionHandler: CompletionHandler) -> DownloadTask? {
         if backgroundSession == nil {
             return nil
         }
@@ -177,7 +177,7 @@ class Net : NSObject, NSURLSessionDataDelegate, NSURLSessionDownloadDelegate, NS
     }
     
     // UPLOAD
-    func upload(# absoluteUrl: String, data: NSData, startImmediately: Bool = true, progressHandler: ProgressHandler, completionHandler: (NSError?) -> ()) -> UploadTask? {
+    func upload(absoluteUrl  absoluteUrl: String, data: NSData, startImmediately: Bool = true, progressHandler: ProgressHandler, completionHandler: (NSError?) -> ()) -> UploadTask? {
         if uploadSession == nil {
             return nil
         }
@@ -191,7 +191,7 @@ class Net : NSObject, NSURLSessionDataDelegate, NSURLSessionDownloadDelegate, NS
         return uploader
     }
    
-    func upload(# absoluteUrl: String, params: NSDictionary, startImmediately: Bool = true, progressHandler: ProgressHandler, completionHandler: (NSError?) -> ()) -> UploadTask? {
+    func upload(absoluteUrl  absoluteUrl: String, params: NSDictionary, startImmediately: Bool = true, progressHandler: ProgressHandler, completionHandler: (NSError?) -> ()) -> UploadTask? {
         if uploadSession == nil {
             return nil
         }
@@ -205,7 +205,7 @@ class Net : NSObject, NSURLSessionDataDelegate, NSURLSessionDownloadDelegate, NS
         return uploader
     }
     
-    func upload(# absoluteUrl: String, fromFile: NSURL, startImmediately: Bool = true, progressHandler: ProgressHandler, completionHandler: (NSError?) -> ()) -> UploadTask? {
+    func upload(absoluteUrl  absoluteUrl: String, fromFile: NSURL, startImmediately: Bool = true, progressHandler: ProgressHandler, completionHandler: (NSError?) -> ()) -> UploadTask? {
         if backgroundSession == nil {
             return nil
         }
@@ -258,7 +258,7 @@ class Net : NSObject, NSURLSessionDataDelegate, NSURLSessionDownloadDelegate, NS
         }
     }
     
-    func URLSession(session: NSURLSession, task: NSURLSessionTask, willPerformHTTPRedirection response: NSHTTPURLResponse, newRequest request: NSURLRequest, completionHandler: (NSURLRequest!) -> Void) {
+    func URLSession(session: NSURLSession, task: NSURLSessionTask, willPerformHTTPRedirection response: NSHTTPURLResponse, newRequest request: NSURLRequest, completionHandler: (NSURLRequest?) -> Void) {
     }
 
     
@@ -271,7 +271,7 @@ class Net : NSObject, NSURLSessionDataDelegate, NSURLSessionDownloadDelegate, NS
     }
     
     func URLSession(session: NSURLSession, downloadTask: NSURLSessionDownloadTask, didFinishDownloadingToURL location: NSURL) {
-        var downloader = downloaders[downloadTask]
+        let downloader = downloaders[downloadTask]
         downloader?.didComplete(location, error: nil)
         downloaders.removeValueForKey(downloadTask)
     }
@@ -309,7 +309,7 @@ class Net : NSObject, NSURLSessionDataDelegate, NSURLSessionDownloadDelegate, NS
     *  @return request instance
     */
     private func httpRequest(method: HttpMethod, url: String, params: NSDictionary?, isAbsoluteUrl: Bool = false, successHandler: SuccessHandler, failureHandler: FailureHandler) -> NSURLSessionTask {
-        let urlString = isAbsoluteUrl ? url : "\(baseUrl.absoluteString!)\(url)"
+        let urlString = isAbsoluteUrl ? url : "\(baseUrl.absoluteString)\(url)"
         NSLog(urlString)
         
         let request = requestSerializer.requestWithMethod(method, urlString: urlString, params: params, error: nil)
@@ -335,7 +335,7 @@ class Net : NSObject, NSURLSessionDataDelegate, NSURLSessionDownloadDelegate, NS
                 failureHandler(error)
             }
             else {
-                let responseData = ResponseData(response: response, data: data)
+                let responseData = ResponseData(response: response!, data: data!)
                 successHandler(responseData)
             }
         })

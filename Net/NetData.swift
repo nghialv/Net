@@ -47,13 +47,13 @@ class NetData
     }
     
     init(pngImage: UIImage, filename: String) {
-        data = UIImagePNGRepresentation(pngImage)
+        data = UIImagePNGRepresentation(pngImage)!
         self.mimeType = MimeType.ImagePng
         self.filename = filename
     }
     
     init(jpegImage: UIImage, compressionQuanlity: CGFloat, filename: String) {
-        data = UIImageJPEGRepresentation(jpegImage, compressionQuanlity)
+        data = UIImageJPEGRepresentation(jpegImage, compressionQuanlity)!
         self.mimeType = MimeType.ImageJpeg
         self.filename = filename
     }

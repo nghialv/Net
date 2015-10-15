@@ -29,7 +29,7 @@ class UploadViewController : UIViewController
         super.viewDidLoad()
         
         net = Net()
-        net.setupSession(backgroundIdentifier: "com.nghiav.upload")
+        net.setupSession("com.nghiav.upload")
         
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         net.eventsForBackgroundHandler = { [weak appDelegate](urlSession: NSURLSession) in
@@ -89,19 +89,19 @@ class UploadViewController : UIViewController
         // upload with file
         let path = NSBundle.mainBundle().pathForResource("image_file", ofType: "png")
         let fileUrl = NSURL(fileURLWithPath: path!)
-        startUpload(imgUrl, file: fileUrl!, progressView: imgProgressView)
+        startUpload(imgUrl, file: fileUrl, progressView: imgProgressView)
     }
     
     @IBAction func pdfResumeAction() {
         let path = NSBundle.mainBundle().pathForResource("pdf_file", ofType: "pdf")
         let fileUrl = NSURL(fileURLWithPath: path!)
-        startUpload(pdfUrl, file: fileUrl!, progressView: pdfProgressView)
+        startUpload(pdfUrl, file: fileUrl, progressView: pdfProgressView)
     }
     
     @IBAction func zipResumeAction() {
         let path = NSBundle.mainBundle().pathForResource("zip_file", ofType: "zip")
         let fileUrl = NSURL(fileURLWithPath: path!)
-        startUpload(zipUrl, file: fileUrl!, progressView: zipProgressView)
+        startUpload(zipUrl, file: fileUrl, progressView: zipProgressView)
     }
     
     // suspend

@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6205" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Gwi-PL-URA">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Gwi-PL-URA">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6198"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--HttpRequest-->
@@ -16,9 +18,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bBv-rL-uyT">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bBv-rL-uyT">
                                 <rect key="frame" x="30" y="257" width="260" height="35"/>
                                 <color key="backgroundColor" red="0.20894173120000001" green="0.62185968140000003" blue="0.38329798799999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="0Fn-q5-Iu8"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <state key="normal" title="GET XML">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -28,7 +33,7 @@
                                     <action selector="xmlGetActions" destination="vXZ-lx-hvc" eventType="touchUpInside" id="ITo-sr-bvZ"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i3h-aD-069">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i3h-aD-069">
                                 <rect key="frame" x="30" y="219" width="260" height="35"/>
                                 <color key="backgroundColor" red="0.20894173120000001" green="0.62185968140000003" blue="0.38329798799999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -40,9 +45,12 @@
                                     <action selector="jsonGetActions" destination="vXZ-lx-hvc" eventType="touchUpInside" id="bfZ-Uj-dLM"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RrK-cx-dtE">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RrK-cx-dtE">
                                 <rect key="frame" x="30" y="344" width="260" height="35"/>
                                 <color key="backgroundColor" red="0.20894173120000001" green="0.62185968140000003" blue="0.38329798799999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="8BA-ZR-PBB"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <state key="normal" title="POST URL-ENCODED">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -52,7 +60,7 @@
                                     <action selector="urlEncodedPostActions" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Yem-zC-rLM"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fh5-2M-1A1">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fh5-2M-1A1">
                                 <rect key="frame" x="30" y="295" width="260" height="35"/>
                                 <color key="backgroundColor" red="0.20894173120000001" green="0.62185968140000003" blue="0.38329798799999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -64,7 +72,7 @@
                                     <action selector="imageGetActions" destination="vXZ-lx-hvc" eventType="touchUpInside" id="5cC-oS-QTh"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SRh-3R-Ucj">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SRh-3R-Ucj">
                                 <rect key="frame" x="30" y="382" width="260" height="35"/>
                                 <color key="backgroundColor" red="0.20894173120000001" green="0.62185968140000003" blue="0.38329798799999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -76,9 +84,12 @@
                                     <action selector="multiPartPostActions" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Cw0-jg-tBy"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4HD-Lb-mTf">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4HD-Lb-mTf">
                                 <rect key="frame" x="30" y="432" width="260" height="35"/>
                                 <color key="backgroundColor" red="0.20894173120000001" green="0.62185968140000003" blue="0.38329798799999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="Whi-Jt-KvP"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <state key="normal" title="BATCH">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -88,8 +99,8 @@
                                     <action selector="batchAction" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Pmp-UU-4xJ"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6dI-qo-hEF">
-                                <rect key="frame" x="30" y="470" width="260" height="35"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6dI-qo-hEF">
+                                <rect key="frame" x="30" y="470" width="260" height="30"/>
                                 <color key="backgroundColor" red="0.20894173120000001" green="0.62185968140000003" blue="0.38329798799999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <state key="normal" title="BASIC AUTHENTICATION">
@@ -100,7 +111,7 @@
                                     <action selector="basicAuthenticationAction" destination="vXZ-lx-hvc" eventType="touchUpInside" id="RNi-MN-MxJ"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IdI-ZX-QN8">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="IdI-ZX-QN8">
                                 <rect key="frame" x="15" y="20" width="290" height="180"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="290" id="3f7-Sc-5bl"/>
@@ -110,16 +121,38 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="4HD-Lb-mTf" firstAttribute="leading" secondItem="i3h-aD-069" secondAttribute="leading" id="2Zj-UP-m70"/>
+                            <constraint firstItem="IdI-ZX-QN8" firstAttribute="centerX" secondItem="bBv-rL-uyT" secondAttribute="centerX" id="3st-xc-YQ2"/>
+                            <constraint firstItem="4HD-Lb-mTf" firstAttribute="leading" secondItem="bBv-rL-uyT" secondAttribute="leading" id="86b-GI-1Y3"/>
+                            <constraint firstItem="i3h-aD-069" firstAttribute="top" secondItem="IdI-ZX-QN8" secondAttribute="bottom" constant="19" id="B9t-us-1Sh"/>
+                            <constraint firstItem="6dI-qo-hEF" firstAttribute="top" secondItem="4HD-Lb-mTf" secondAttribute="bottom" constant="3" id="CPy-aB-BdS"/>
+                            <constraint firstItem="SRh-3R-Ucj" firstAttribute="top" secondItem="RrK-cx-dtE" secondAttribute="bottom" constant="3" id="CqB-GJ-NjN"/>
+                            <constraint firstItem="4HD-Lb-mTf" firstAttribute="leading" secondItem="RrK-cx-dtE" secondAttribute="leading" id="IrG-e6-Edy"/>
+                            <constraint firstItem="4HD-Lb-mTf" firstAttribute="leading" secondItem="fh5-2M-1A1" secondAttribute="leading" id="MAI-YB-W4B"/>
+                            <constraint firstItem="RrK-cx-dtE" firstAttribute="top" secondItem="fh5-2M-1A1" secondAttribute="bottom" constant="14" id="MO8-Ey-p0x"/>
+                            <constraint firstItem="4HD-Lb-mTf" firstAttribute="top" secondItem="SRh-3R-Ucj" secondAttribute="bottom" constant="15" id="Mwp-oR-MOZ"/>
+                            <constraint firstItem="IdI-ZX-QN8" firstAttribute="centerX" secondItem="RrK-cx-dtE" secondAttribute="centerX" id="RJT-Xg-3Hn"/>
+                            <constraint firstItem="IdI-ZX-QN8" firstAttribute="centerX" secondItem="4HD-Lb-mTf" secondAttribute="centerX" id="Wy3-5u-i4n"/>
+                            <constraint firstItem="IdI-ZX-QN8" firstAttribute="centerX" secondItem="fh5-2M-1A1" secondAttribute="centerX" id="YDg-uu-nrH"/>
+                            <constraint firstItem="fh5-2M-1A1" firstAttribute="top" secondItem="bBv-rL-uyT" secondAttribute="bottom" constant="3" id="cWE-7n-SuG"/>
+                            <constraint firstItem="bBv-rL-uyT" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="top" constant="257" id="dBB-Q8-EwQ"/>
+                            <constraint firstItem="4HD-Lb-mTf" firstAttribute="leading" secondItem="6dI-qo-hEF" secondAttribute="leading" id="lOo-UQ-N6u"/>
+                            <constraint firstAttribute="bottom" secondItem="4HD-Lb-mTf" secondAttribute="bottom" constant="101" id="mRD-YI-mNe"/>
+                            <constraint firstItem="4HD-Lb-mTf" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="14" id="mpH-b5-7sy"/>
+                            <constraint firstItem="IdI-ZX-QN8" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="top" constant="20" symbolic="YES" id="pRL-hQ-5VS"/>
+                            <constraint firstItem="IdI-ZX-QN8" firstAttribute="centerX" secondItem="6dI-qo-hEF" secondAttribute="centerX" id="qMh-6L-Eiy"/>
+                            <constraint firstItem="bBv-rL-uyT" firstAttribute="top" secondItem="i3h-aD-069" secondAttribute="bottom" constant="3" id="rqg-i1-Q9S"/>
                             <constraint firstAttribute="centerX" secondItem="IdI-ZX-QN8" secondAttribute="centerX" id="tAG-Fr-LaZ"/>
+                            <constraint firstItem="IdI-ZX-QN8" firstAttribute="centerX" secondItem="SRh-3R-Ucj" secondAttribute="centerX" id="tas-jV-2wn"/>
+                            <constraint firstItem="4HD-Lb-mTf" firstAttribute="leading" secondItem="SRh-3R-Ucj" secondAttribute="leading" id="xH9-Eh-Uqa"/>
+                            <constraint firstItem="IdI-ZX-QN8" firstAttribute="centerX" secondItem="i3h-aD-069" secondAttribute="centerX" id="zCZ-dq-e15"/>
+                            <constraint firstAttribute="bottom" secondItem="RrK-cx-dtE" secondAttribute="bottom" constant="189" id="zFg-e9-VIL"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="HttpRequest" id="ivl-Cj-JY5"/>
                     <nil key="simulatedStatusBarMetrics"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4">
-                        <size key="portraitSize" width="320" height="568"/>
-                        <size key="landscapeSize" width="568" height="320"/>
-                    </simulatedScreenMetrics>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="imageView" destination="IdI-ZX-QN8" id="WfC-dy-e96"/>
                     </connections>
@@ -305,10 +338,7 @@
                     <tabBarItem key="tabBarItem" title="Download" id="bj8-2z-TK4"/>
                     <nil key="simulatedStatusBarMetrics"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4">
-                        <size key="portraitSize" width="320" height="568"/>
-                        <size key="landscapeSize" width="568" height="320"/>
-                    </simulatedScreenMetrics>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="imgProgressView" destination="tIn-fa-kPf" id="3tv-iw-X9e"/>
                         <outlet property="pdfProgressView" destination="Cfq-G9-7An" id="Dco-F8-qgE"/>
@@ -433,10 +463,7 @@
                     <tabBarItem key="tabBarItem" title="Upload" id="X0K-D7-k7Y"/>
                     <nil key="simulatedStatusBarMetrics"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4">
-                        <size key="portraitSize" width="320" height="568"/>
-                        <size key="landscapeSize" width="568" height="320"/>
-                    </simulatedScreenMetrics>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="imgProgressView" destination="R5f-y8-EOk" id="fhN-cL-1Sx"/>
                         <outlet property="pdfProgressView" destination="S0U-G8-MFA" id="h3s-ow-cuZ"/>
@@ -454,10 +481,7 @@
                     <toolbarItems/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4">
-                        <size key="portraitSize" width="320" height="568"/>
-                        <size key="landscapeSize" width="568" height="320"/>
-                    </simulatedScreenMetrics>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="ilt-lK-xDN">
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
