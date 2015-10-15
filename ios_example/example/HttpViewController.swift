@@ -19,11 +19,11 @@ class HttpViewController: UIViewController, NSXMLParserDelegate {
     }
 
     // MARK: NSXMLParser delegate
-    func parser(parser: NSXMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [NSObject : AnyObject]) {
+    func parser(parser: NSXMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String]) {
         NSLog("did start element : \(elementName)")
     }
     
-    func parser(parser: NSXMLParser, foundCharacters string: String?) {
+    func parser(parser: NSXMLParser, foundCharacters string: String) {
     }
     
     // MARK: Actions
@@ -36,7 +36,7 @@ class HttpViewController: UIViewController, NSXMLParserDelegate {
             "dictionary": ["x": 100.0, "y": 200.0]]
         
         net.GET(url, params: params, successHandler: { responseData in
-                let result = responseData.json(error: nil)
+                let result = try? responseData.json()
                 NSLog("result \(result)")
             }, failureHandler: { error in
                 NSLog("Error")
@@ -49,7 +49,13 @@ class HttpViewController: UIViewController, NSXMLParserDelegate {
         net.GET(url, params: nil, successHandler: {
             [weak self]responseData in
                 if let s = self {
-                    let result = responseData.parseXml(s)
+                    let _: Bool
+                    do {
+                        try responseData.parseXml(s)
+                        _ = true
+                    } catch _ {
+                        _ = false
+                    }
                 }
             }, failureHandler: { error in
                 NSLog("Error")
@@ -64,7 +70,11 @@ class HttpViewController: UIViewController, NSXMLParserDelegate {
             [weak self]responseData in
                 gcd.async(.Main) {
                     if let s = self {
-                        s.imageView.image = responseData.image()
+                        do {
+                            s.imageView.image = try responseData.image()
+                        } catch _ {
+                            s.imageView.image = nil
+                        }
                     }
                 }
             }, failureHandler: { error in
@@ -82,7 +92,7 @@ class HttpViewController: UIViewController, NSXMLParserDelegate {
         
         net.POST(url, params: params, successHandler: {
             responseData in
-                let result = responseData.json(error: nil)
+                let result = try? responseData.json()
                 NSLog("result: \(result)")
             }, failureHandler: { error in
                 NSLog("Error")
@@ -102,7 +112,7 @@ class HttpViewController: UIViewController, NSXMLParserDelegate {
         
         net.POST(url, params: params, successHandler: {
             responseData in
-                let result = responseData.json(error: nil)
+                let result = try? responseData.json()
                 NSLog("result: \(result)")
             }, failureHandler: { error in
                 NSLog("Error")

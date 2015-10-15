@@ -28,7 +28,7 @@ class DownloadViewController : UIViewController
         super.viewDidLoad()
         
         net = Net()
-        net.setupSession(backgroundIdentifier: "com.nghialv.download")
+        net.setupSession("com.nghialv.download")
         
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         net.eventsForBackgroundHandler = { [weak appDelegate](urlSession: NSURLSession) in
@@ -125,17 +125,24 @@ class DownloadViewController : UIViewController
                     NSLog("Completion : \(fileUrl)")
                 
                     let fileManager = NSFileManager.defaultManager()
-                    let filename = url.lastPathComponent
+                    //let filename = url.lastPathComponent
+                    let filename = url
                 
                     let urls = fileManager.URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
-                    let documentDir = urls[0] as! NSURL
+                    let documentDir = urls[0] 
                     let desUrl = documentDir.URLByAppendingPathComponent(filename)
                 
                     if fileManager.fileExistsAtPath(desUrl.path!) {
-                        fileManager.removeItemAtURL(desUrl, error: nil)
+                        do {
+                            try fileManager.removeItemAtURL(desUrl)
+                        } catch _ {
+                        }
                     }
                 
-                    fileManager.copyItemAtURL(fileUrl!, toURL: desUrl, error: nil)
+                    do {
+                        try fileManager.copyItemAtURL(fileUrl!, toURL: desUrl)
+                    } catch _ {
+                    }
                 }
         })
         

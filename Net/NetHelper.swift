@@ -51,9 +51,9 @@ class NetHelper
     */
     class func queryStringFromParams(params: NSDictionary) -> String {
         let paramsArray = self.convertParamsToArray(params)
-        var queryString = join("&", paramsArray.map{"\($0)=\($1)"})
+        let queryString = paramsArray.map{"\($0)=\($1)"}.joinWithSeparator("&")
         
-        return queryString.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!
+        return queryString.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!
     }
     
     /**
@@ -77,7 +77,7 @@ class NetHelper
     *  @return
     */
     class func dataFromParamsWithBoundary(params: NSDictionary, boundary: String) -> NSData {
-        var data = NSMutableData()
+        let data = NSMutableData()
         
         let prefixString = "--\(boundary)\r\n"
         let prefixData = prefixString.dataUsingEncoding(NSUTF8StringEncoding)
